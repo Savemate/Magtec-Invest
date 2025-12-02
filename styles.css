@@ -12,8 +12,7 @@
   --shadow-md: 0 8px 24px rgba(11, 62, 138, 0.08);
   --shadow-lg: 0 16px 40px rgba(11, 62, 138, 0.12);
   --success: #2E7D32;
-  --error: #D32F2F;
-}
+  --error: #D32F2F;}
 
 * {
   box-sizing: border-box;
