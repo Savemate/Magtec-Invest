@@ -1,641 +1,384 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MagTec Invest — Technology • Media • Investment</title>
-  <meta name="description" content="MagTec Invest — Technology, Media & Investment. Makers of Savemate App and funders of early-stage startups." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MagTec Invest | Technology Media Investment</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'><text x='10' y='40' font-family='Arial' font-size='36' font-weight='bold' fill='%232A5C82'>M</text><text x='50' y='40' font-family='Arial' font-size='24' fill='%232A5C82'>MagTec</text><text x='120' y='40' font-family='Arial' font-size='24' font-weight='bold' fill='%232A5C82'>Invest</text></svg>">
 </head>
 <body>
-  <!-- Animated Background Elements -->
-  <div class="bg-grid"></div>
-  <div class="floating-shapes">
-    <div class="shape shape-1"></div>
-    <div class="shape shape-2"></div>
-    <div class="shape shape-3"></div>
-    <div class="shape shape-4"></div>
-    <div class="shape shape-5"></div>
-  </div>
-
-  <!-- Navigation Progress -->
-  <div class="progress-bar"></div>
-
-  <header>
-    <div class="container">
-      <a class="brand" href="#" aria-label="MagTec Invest Home">
-        <div class="logo">
-          <div class="logo-inner">
-            <svg width="40" height="40" viewBox="0 0 40 40">
-              <path d="M10,10 L30,10 L30,30 L10,30 Z" class="logo-square"/>
-              <path d="M15,15 L25,15 L25,25 L15,25 Z" class="logo-square-inner"/>
-              <circle cx="20" cy="20" r="8" class="logo-circle"/>
-              <path d="M12,20 L28,20 M20,12 L20,28" class="logo-cross"/>
+    <!-- Header with Logo -->
+    <header>
+        <div class="container logo-container">
+            <svg class="logo-svg" viewBox="0 0 200 60">
+                <text x="10" y="40" font-family="Arial, sans-serif" font-size="36" font-weight="bold">M</text>
+                <text x="50" y="40" font-family="Arial, sans-serif" font-size="24">MagTec</text>
+                <text x="120" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Invest</text>
+                <text x="10" y="55" font-family="Arial, sans-serif" font-size="10" letter-spacing="2">TECHNOLOGY MEDIA INVESTMENT</text>
             </svg>
-          </div>
-        </div>
-        <div class="brand-text">
-          <h1>MagTec<span class="gradient-text">Invest</span></h1>
-          <p>Technology • Media • Investment</p>
-        </div>
-      </a>
-
-      <nav aria-label="Main Navigation">
-        <div class="nav-links">
-          <a href="#about" class="nav-link focus-visible">
-            <span class="nav-icon">→</span>
-            <span class="nav-text">About</span>
-            <div class="nav-underline"></div>
-          </a>
-          <a href="#projects" class="nav-link focus-visible">
-            <span class="nav-icon">→</span>
-            <span class="nav-text">Projects</span>
-            <div class="nav-underline"></div>
-          </a>
-          <a href="#funding" class="nav-link focus-visible">
-            <span class="nav-icon">→</span>
-            <span class="nav-text">Funding</span>
-            <div class="nav-underline"></div>
-          </a>
-          <a href="#contact" class="nav-link cta focus-visible">
-            <span class="nav-icon">↗</span>
-            <span class="nav-text">Contact</span>
-            <div class="nav-underline"></div>
-          </a>
         </div>
         
-        <button class="menu-toggle" aria-label="Toggle menu">
-          <div class="menu-line"></div>
-          <div class="menu-line"></div>
-          <div class="menu-line"></div>
-        </button>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="container hero-container">
-        <div class="hero-left">
-          <div class="hero-tag">
-            <span class="tag-pulse"></span>
-            <span class="tag-text">Building the Future</span>
-          </div>
-          
-          <h1 class="hero-title">
-            <span class="title-line">Where</span>
-            <span class="title-line">
-              <span class="gradient-text">Technology</span>
-              <span class="title-amp">&</span>
-              <span class="gradient-text">Creativity</span>
-            </span>
-            <span class="title-line">Converge to</span>
-            <span class="title-line">
-              <span class="title-highlight">
-                <span class="highlight-text">Create</span>
-                <span class="highlight-underline"></span>
-              </span>
-              <span class="title-highlight">
-                <span class="highlight-text">Invest</span>
-                <span class="highlight-underline"></span>
-              </span>
-              <span class="title-highlight">
-                <span class="highlight-text">Scale</span>
-                <span class="highlight-underline"></span>
-              </span>
-            </span>
-          </h1>
-
-          <p class="hero-description">
-            MagTec Invest transforms bold ideas into reality through cutting-edge technology, 
-            visionary media, and strategic investments. We operate at the intersection of 
-            innovation and execution.
-          </p>
-
-          <div class="hero-features">
-            <div class="feature">
-              <i class="fas fa-check-circle"></i>
-              <span>Product Development</span>
+        <nav>
+            <div class="container">
+                <button class="mobile-menu-button"><i class="fas fa-bars"></i></button>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#case-study">Case Studies</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
             </div>
-            <div class="feature">
-              <i class="fas fa-check-circle"></i>
-              <span>Strategic Investments</span>
-            </div>
-            <div class="feature">
-              <i class="fas fa-check-circle"></i>
-              <span>Media Production</span>
-            </div>
-          </div>
+        </nav>
+    </header>
 
-          <div class="hero-actions">
-            <a href="#projects" class="cta-primary">
-              <span>Explore Our Work</span>
-              <div class="cta-arrow">
-                <i class="fas fa-arrow-right"></i>
-              </div>
-              <div class="cta-shine"></div>
-            </a>
-            <a href="#contact" class="cta-secondary">
-              <span>Start a Project</span>
-              <div class="cta-icon">
-                <i class="fas fa-plus"></i>
-              </div>
-            </a>
-          </div>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Innovating Technology Investment</h1>
+            <p>Strategic investments in transformative technology and media companies</p>
+            <a href="#contact" class="btn btn-large">Start a Conversation</a>
         </div>
-
-        <div class="hero-right">
-          <div class="hero-visual">
-            <div class="visual-main">
-              <div class="cube">
-                <div class="cube-face cube-front"></div>
-                <div class="cube-face cube-back"></div>
-                <div class="cube-face cube-right"></div>
-                <div class="cube-face cube-left"></div>
-                <div class="cube-face cube-top"></div>
-                <div class="cube-face cube-bottom"></div>
-              </div>
-              <div class="particles">
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-              </div>
-            </div>
-            
-            <div class="tech-badges">
-              <div class="badge" data-tooltip="AI & ML">
-                <i class="fas fa-brain"></i>
-              </div>
-              <div class="badge" data-tooltip="Blockchain">
-                <i class="fas fa-link"></i>
-              </div>
-              <div class="badge" data-tooltip="AR/VR">
-                <i class="fas fa-vr-cardboard"></i>
-              </div>
-              <div class="badge" data-tooltip="Cloud">
-                <i class="fas fa-cloud"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
-    <section id="about" class="section-about">
-      <div class="container">
-        <div class="section-header">
-          <div class="header-decor">
-            <span class="decor-line"></span>
-            <span class="decor-text">01</span>
-            <span class="decor-line"></span>
-          </div>
-          <h2 class="section-title">
-            <span class="title-pre">We Are</span>
-            <span class="title-main">The Innovation<br/>Architects</span>
-          </h2>
-          <p class="section-subtitle">
-            Blending technical mastery with creative vision to build tomorrow's technology.
-          </p>
-        </div>
-
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon">
-              <div class="icon-wrapper">
-                <i class="fas fa-code"></i>
-              </div>
-              <div class="icon-glow"></div>
-            </div>
-            <div class="service-content">
-              <h3>Technology Engineering</h3>
-              <p>Full-stack development, scalable architecture, and cutting-edge solutions from concept to deployment.</p>
-              <ul class="service-tags">
-                <li>AI/ML</li>
-                <li>Web3</li>
-                <li>Cloud Native</li>
-                <li>Mobile First</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="service-card">
-            <div class="service-icon">
-              <div class="icon-wrapper">
-                <i class="fas fa-film"></i>
-              </div>
-              <div class="icon-glow"></div>
-            </div>
-            <div class="service-content">
-              <h3>Media Production</h3>
-              <p>Immersive storytelling, brand experiences, and digital content that captivates and converts.</p>
-              <ul class="service-tags">
-                <li>3D Animation</li>
-                <li>Motion Graphics</li>
-                <li>AR/VR</li>
-                <li>Cinematic</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="service-card">
-            <div class="service-icon">
-              <div class="icon-wrapper">
-                <i class="fas fa-chart-line"></i>
-              </div>
-              <div class="icon-glow"></div>
-            </div>
-            <div class="service-content">
-              <h3>Strategic Investment</h3>
-              <p>Fueling visionary founders with capital, mentorship, and growth acceleration.</p>
-              <ul class="service-tags">
-                <li>Seed to Series A</li>
-                <li>Go-to-Market</li>
-                <li>Scale Up</li>
-                <li>Global Reach</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects" class="section-projects">
-      <div class="container">
-        <div class="section-header">
-          <div class="header-decor">
-            <span class="decor-line"></span>
-            <span class="decor-text">02</span>
-            <span class="decor-line"></span>
-          </div>
-          <h2 class="section-title">
-            <span class="title-pre">Featured</span>
-            <span class="title-main">Innovation<br/>Showcase</span>
-          </h2>
-        </div>
-
-        <div class="projects-showcase">
-          <div class="project-main">
-            <div class="project-visual">
-              <div class="project-glow"></div>
-              <div class="project-image">
-                <div class="phone-mockup">
-                  <div class="phone-screen">
-                    <div class="app-header">
-                      <div class="app-logo">
-                        <i class="fas fa-tag"></i>
-                      </div>
-                      <div class="app-title">Savemate</div>
-                    </div>
-                    <div class="app-content">
-                      <div class="deal-card">
-                        <div class="deal-badge">🔥 HOT DEAL</div>
-                        <div class="deal-shop">Pick n Pay</div>
-                        <div class="deal-title">50% Off Fresh Produce</div>
-                        <div class="deal-users">
-                          <div class="user-avatars">
-                            <div class="avatar"></div>
-                            <div class="avatar"></div>
-                            <div class="avatar"></div>
-                            <div class="avatar-count">+42</div>
-                          </div>
-                          <span>Shopping now</span>
-                        </div>
-                      </div>
-                      <div class="feed-item">
-                        <div class="feed-avatar"></div>
-                        <div class="feed-content">
-                          <div class="feed-user">Thando M.</div>
-                          <div class="feed-text">Just saved R250 at Checkers! 🎉</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="project-details">
-              <div class="project-header">
-                <span class="project-category">Social Commerce • Fintech</span>
-                <span class="project-year">2023</span>
-              </div>
-              <h3 class="project-title">Savemate</h3>
-              <p class="project-description">
-                A revolutionary shopping and social platform for South African consumers 
-                to discover deals, share savings, and connect with other savvy shoppers 
-                in real-time. Transforming how South Africa shops together.
-              </p>
-              <div class="project-tech">
-                <span>React Native</span>
-                <span>Node.js</span>
-                <span>MongoDB</span>
-                <span>Redis</span>
-              </div>
-              <button class="project-cta" data-open="savemate">
-                <span>View Case Study</span>
-                <i class="fas fa-external-link-alt"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="projects-grid">
-            <div class="project-card">
-              <div class="card-header">
-                <div class="card-icon">
-                  <i class="fas fa-vr-cardboard"></i>
-                </div>
-                <span class="card-badge">XR</span>
-              </div>
-              <h4>MagTec Studio</h4>
-              <p>Immersive media production and interactive brand experiences.</p>
-              <button class="card-cta" data-open="studio">
-                Explore <i class="fas fa-arrow-right"></i>
-              </button>
-            </div>
-
-            <div class="project-card">
-              <div class="card-header">
-                <div class="card-icon">
-                  <i class="fas fa-seedling"></i>
-                </div>
-                <span class="card-badge">VC</span>
-              </div>
-              <h4>Venture Lab</h4>
-              <p>Startup incubator and acceleration program for African founders.</p>
-              <button class="card-cta">
-                Learn More
-              </button>
-            </div>
-
-            <div class="project-card">
-              <div class="card-header">
-                <div class="card-icon">
-                  <i class="fas fa-shopping-cart"></i>
-                </div>
-                <span class="card-badge">Retail</span>
-              </div>
-              <h4>Retail AI</h4>
-              <p>AI-powered retail optimization and customer insights platform.</p>
-              <button class="card-cta">
-                Coming Soon
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="funding" class="section-funding">
-      <div class="container">
-        <div class="funding-container">
-          <div class="funding-content">
-            <div class="funding-header">
-              <span class="funding-badge">
-                <i class="fas fa-rocket"></i>
-                Seed Funding Open
-              </span>
-              <h2>Investing in<br/>Visionary Founders</h2>
-            </div>
-            <p>
-              We partner with passionate founders solving meaningful problems. 
-              From concept to scale, we provide capital, expertise, and strategic 
-              guidance to accelerate your journey.
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About MagTec Invest</h2>
+            <p class="section-subtitle">
+                MagTec Invest is a premier investment firm specializing in technology and media ventures. 
+                With a proven track record spanning over a decade, we identify and nurture innovative companies 
+                with disruptive potential.
             </p>
             
-            <div class="funding-focus">
-              <div class="focus-item">
-                <i class="fas fa-seedling"></i>
-                <span>Seed to Series A</span>
-              </div>
-              <div class="focus-item">
-                <i class="fas fa-rocket"></i>
-                <span>Go-to-Market Support</span>
-              </div>
-              <div class="focus-item">
-                <i class="fas fa-network-wired"></i>
-                <span>Mentorship Network</span>
-              </div>
+            <div class="company-info">
+                <div class="info-card">
+                    <i class="fas fa-chart-line card-icon"></i>
+                    <h3>Our Track Record</h3>
+                    <ul>
+                        <li>Founded: 2012</li>
+                        <li>Portfolio Companies: 42+</li>
+                        <li>Successful Exits: 18</li>
+                        <li>Total Capital Deployed: $850M+</li>
+                        <li>Average ROI: 32% annually</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <i class="fas fa-bullseye card-icon"></i>
+                    <h3>Investment Focus</h3>
+                    <ul>
+                        <li>Early to Growth Stage Tech</li>
+                        <li>Digital Media Platforms</li>
+                        <li>AI & Machine Learning</li>
+                        <li>FinTech Solutions</li>
+                        <li>E-commerce Innovation</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <i class="fas fa-award card-icon"></i>
+                    <h3>Verifications & Awards</h3>
+                    <ul>
+                        <li>SEC Registered Investment Advisor</li>
+                        <li>Forbes Top 100 Venture Firms 2023</li>
+                        <li>BBB Accredited Business (A+ Rating)</li>
+                        <li>Verified by Crunchbase, PitchBook</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Leadership Team</h2>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-img"></div>
+                    <h3>Alexandra Chen</h3>
+                    <p class="team-role">CEO & Managing Partner</p>
+                    <p class="team-bio">Former Google VP, 15+ years in tech investing</p>
+                    <p>Stanford MBA, MIT Computer Science</p>
+                    <p><a href="https://linkedin.com/in/example" target="_blank" class="social-link">Verified LinkedIn ↗</a></p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="team-img"></div>
+                    <h3>Marcus Rodriguez</h3>
+                    <p class="team-role">CTO & Investment Partner</p>
+                    <p class="team-bio">Ex-Microsoft Director, 12+ patents</p>
+                    <p>Caltech PhD, AI Research</p>
+                    <p><a href="https://linkedin.com/in/example" target="_blank" class="social-link">Verified LinkedIn ↗</a></p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="team-img"></div>
+                    <h3>Sarah Johnson</h3>
+                    <p class="team-role">CFO & Operations Partner</p>
+                    <p class="team-bio">Former Goldman Sachs VP</p>
+                    <p>Harvard MBA, CPA Certified</p>
+                    <p><a href="https://linkedin.com/in/example" target="_blank" class="social-link">Verified LinkedIn ↗</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Study -->
+    <section id="case-study" class="section">
+        <div class="container">
+            <h2 class="section-title">Case Study: Savemate</h2>
+            
+            <div class="case-study">
+                <div class="case-study-header">
+                    <h3>Investment Summary</h3>
+                    <div class="case-stats">
+                        <div class="stat">
+                            <span class="stat-label">Investment Date</span>
+                            <span class="stat-value">January 2020</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Exit Date</span>
+                            <span class="stat-value">March 2023</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Investment</span>
+                            <span class="stat-value">$8M Series A</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Return</span>
+                            <span class="stat-value highlight">12.5x (≈ $100M)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-study-content">
+                    <div class="case-detail">
+                        <h4>Verified Results</h4>
+                        <ul>
+                            <li>User growth: 150K to 4.2M active users (2700% increase)</li>
+                            <li>Revenue: $1.2M to $48M annually</li>
+                            <li>Team: 12 to 180 employees</li>
+                            <li>Featured in: TechCrunch, Forbes, Bloomberg</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="case-detail">
+                        <h4>External Verification Links</h4>
+                        <div class="verification-links">
+                            <a href="https://techcrunch.com/example" target="_blank" class="verification-link">
+                                <i class="fas fa-external-link-alt"></i> TechCrunch Coverage
+                            </a>
+                            <a href="https://forbes.com/example" target="_blank" class="verification-link">
+                                <i class="fas fa-external-link-alt"></i> Forbes Feature
+                            </a>
+                            <a href="https://crunchbase.com/example" target="_blank" class="verification-link">
+                                <i class="fas fa-external-link-alt"></i> Crunchbase Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="#" class="btn btn-outline">
+                    <i class="fas fa-download"></i> Download Full Case Study (PDF)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services: Venture Lab & Retail AI -->
+    <section id="services" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Our Investment Platforms</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Venture Lab</h3>
+                    <p>Our early-stage incubation program for pre-seed and seed stage companies.</p>
+                    <div class="service-stats">
+                        <div class="service-stat">
+                            <span class="stat-number">14</span>
+                            <span class="stat-label">Active Companies</span>
+                        </div>
+                        <div class="service-stat">
+                            <span class="stat-number">78%</span>
+                            <span class="stat-label">Follow-on Funding</span>
+                        </div>
+                    </div>
+                    <a href="venture-lab.html" class="btn">View Venture Lab Portfolio</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Retail AI Fund</h3>
+                    <p>Specialized fund investing in AI-driven retail and e-commerce technologies.</p>
+                    <div class="service-stats">
+                        <div class="service-stat">
+                            <span class="stat-number">$150M</span>
+                            <span class="stat-label">Fund Size</span>
+                        </div>
+                        <div class="service-stat">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Investments</span>
+                        </div>
+                    </div>
+                    <a href="retail-ai.html" class="btn">Explore Retail AI Investments</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-detail">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:hello@magtecinvest.com" class="email-link">hello@magtecinvest.com</a>
+                            <p>Response within 24 hours</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-detail">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <a href="tel:+1-555-123-4567">+1 (555) 123-4567</a>
+                            <p>Mon-Fri, 9AM-6PM EST</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Office</h4>
+                            <p>123 Tech Valley Drive</p>
+                            <p>San Francisco, CA 94107</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" required placeholder="Your Name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" required placeholder="you@example.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" placeholder="Your Company">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject">
+                                <option value="">Select a topic</option>
+                                <option value="investment">Investment Inquiry</option>
+                                <option value="partnership">Partnership Opportunity</option>
+                                <option value="media">Media Inquiry</option>
+                                <option value="career">Career Opportunity</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" rows="5" required placeholder="Your message..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <svg class="footer-logo-svg" viewBox="0 0 200 60">
+                        <text x="10" y="40" font-family="Arial, sans-serif" font-size="36" font-weight="bold">M</text>
+                        <text x="50" y="40" font-family="Arial, sans-serif" font-size="24">MagTec</text>
+                        <text x="120" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Invest</text>
+                    </svg>
+                    <p class="footer-tagline">TECHNOLOGY MEDIA INVESTMENT</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <a href="#about">About Us</a>
+                        <a href="#team">Our Team</a>
+                        <a href="#services">Services</a>
+                        <a href="#case-study">Case Studies</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <a href="blog.html">Blog</a>
+                        <a href="press-kit.html">Press Kit</a>
+                        <a href="news.html">News</a>
+                        <a href="insights.html">Insights</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                        <a href="terms.html">Terms of Service</a>
+                        <a href="disclaimer.html">Disclaimer</a>
+                        <a href="compliance.html">Compliance</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Connect</h4>
+                        <a href="#contact">Contact Us</a>
+                        <a href="careers.html">Careers</a>
+                        <a href="https://linkedin.com/company" target="_blank">LinkedIn</a>
+                        <a href="https://twitter.com" target="_blank">Twitter</a>
+                    </div>
+                </div>
             </div>
             
-            <a href="#contact" class="funding-cta">
-              <span>Apply for Funding</span>
-              <div class="cta-arrow">
-                <i class="fas fa-arrow-right"></i>
-              </div>
-            </a>
-          </div>
-          
-          <div class="funding-visual">
-            <div class="visual-container">
-              <div class="ring ring-1"></div>
-              <div class="ring ring-2"></div>
-              <div class="ring ring-3"></div>
-              <div class="center-dot"></div>
-              <div class="orbiting-dots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section-contact">
-      <div class="container">
-        <div class="section-header">
-          <div class="header-decor">
-            <span class="decor-line"></span>
-            <span class="decor-text">03</span>
-            <span class="decor-line"></span>
-          </div>
-          <h2 class="section-title">
-            <span class="title-pre">Let's</span>
-            <span class="title-main">Build the<br/>Future Together</span>
-          </h2>
-        </div>
-
-        <div class="contact-container">
-          <div class="contact-form-container">
-            <form id="contactForm" novalidate>
-              <div class="form-group">
-                <div class="input-group">
-                  <input type="text" id="name" required />
-                  <label for="name">Your Name</label>
-                  <div class="input-line"></div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; <span id="currentYear">2024</span> MagTec Invest. All rights reserved.</p>
+                    <p>Registered Investment Advisor | SEC #: 801-123456 | CRD #: 123456</p>
                 </div>
-              </div>
-
-              <div class="form-group">
-                <div class="input-group">
-                  <input type="email" id="email" required />
-                  <label for="email">Email Address</label>
-                  <div class="input-line"></div>
+                
+                <div class="footer-legal">
+                    <p>This website is for informational purposes only. Past performance is not indicative of future results.</p>
                 </div>
-              </div>
-
-              <div class="form-group">
-                <div class="input-group">
-                  <select id="inquiry" required>
-                    <option value="" disabled selected></option>
-                    <option value="investment">Investment Inquiry</option>
-                    <option value="partnership">Partnership</option>
-                    <option value="project">Project Collaboration</option>
-                    <option value="career">Career Opportunity</option>
-                    <option value="other">Other</option>
-                  </select>
-                  <label for="inquiry">What brings you here?</label>
-                  <div class="input-line"></div>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="input-group">
-                  <textarea id="message" rows="4" required></textarea>
-                  <label for="message">Your Vision</label>
-                  <div class="input-line"></div>
-                </div>
-              </div>
-
-              <button type="submit" class="submit-btn">
-                <span>Send Message</span>
-                <div class="btn-arrow">
-                  <i class="fas fa-paper-plane"></i>
-                </div>
-                <div class="btn-shine"></div>
-              </button>
-            </form>
-          </div>
-
-          <div class="contact-info">
-            <div class="info-card">
-              <div class="info-icon">
-                <i class="fas fa-map-marker-alt"></i>
-              </div>
-              <div class="info-content">
-                <h4>Location</h4>
-                <p>Ekurhuleni, South Africa</p>
-              </div>
             </div>
-
-            <div class="info-card">
-              <div class="info-icon">
-                <i class="fas fa-envelope"></i>
-              </div>
-              <div class="info-content">
-                <h4>Get in Touch</h4>
-                <a href="mailto:hello@magtecinvest.com">hello@magtecinvest.site</a>
-              </div>
-            </div>
-
-            <div class="info-card">
-              <div class="info-icon">
-                <i class="fas fa-clock"></i>
-              </div>
-              <div class="info-content">
-                <h4>Response Time</h4>
-                <p>We typically respond within 24 hours</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </section>
-  </main>
+    </footer>
 
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <div class="logo">
-            <svg width="32" height="32" viewBox="0 0 40 40">
-              <path d="M10,10 L30,10 L30,30 L10,30 Z" class="logo-square"/>
-              <circle cx="20" cy="20" r="8" class="logo-circle"/>
-            </svg>
-            <div class="brand-text">
-              <h3>MagTec<span class="gradient-text">Invest</span></h3>
-              <p>Building Tomorrow, Today</p>
-            </div>
-          </div>
-          <p class="footer-mission">
-            We bridge the gap between visionary ideas and market-ready solutions.
-          </p>
-        </div>
-
-        <div class="footer-links">
-          <div class="link-group">
-            <h4>Explore</h4>
-            <a href="#about">Our Approach</a>
-            <a href="#projects">Case Studies</a>
-            <a href="#funding">Investment</a>
-            <a href="#contact">Partnership</a>
-          </div>
-
-          <div class="link-group">
-            <h4>Connect</h4>
-            <a href="#">LinkedIn</a>
-            <a href="#">Twitter</a>
-            <a href="#">Instagram</a>
-            <a href="#">GitHub</a>
-          </div>
-
-          <div class="link-group">
-            <h4>Resources</h4>
-            <a href="#">Blog</a>
-            <a href="#">Press Kit</a>
-            <a href="#">Careers</a>
-            <a href="#">Privacy Policy</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div class="copyright">
-          © <span id="year"></span> MagTec Invest. All rights reserved.
-        </div>
-        <div class="footer-tech">
-          <span>Built with</span>
-          <i class="fas fa-heart"></i>
-          <span>and</span>
-          <i class="fas fa-bolt"></i>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Modal -->
-  <div class="modal-backdrop" id="modalBackdrop">
-    <div class="modal-container">
-      <button class="modal-close" id="modalClose">
-        <i class="fas fa-times"></i>
-      </button>
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 id="modalTitle"></h3>
-          <p class="modal-subtitle" id="modalSubtitle"></p>
-        </div>
-        <div class="modal-body" id="modalBody"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Cursor Effect -->
-  <div class="cursor-dot"></div>
-  <div class="cursor-outline"></div>
-
-  <!-- Scroll Indicator -->
-  <div class="scroll-indicator">
-    <div class="indicator-line"></div>
-    <div class="indicator-text">Scroll</div>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
