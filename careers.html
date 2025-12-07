@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - MagTec Invest</title>
+    <style>
+        :root { --cream-white: #FFFDD0; --accent-color: #2A5C82; --dark-text: #333333; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--cream-white); color: var(--dark-text); }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        header { background: white; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 40px; }
+        .logo { font-size: 24px; font-weight: bold; color: var(--accent-color); }
+        nav a { margin-right: 20px; text-decoration: none; color: var(--dark-text); }
+        nav a:hover { color: var(--accent-color); }
+        
+        .careers-header { text-align: center; padding: 60px 0; }
+        .careers-header h1 { font-size: 2.8rem; color: var(--accent-color); margin-bottom: 20px; }
+        
+        .job-listing { background: white; padding: 30px; margin: 20px 0; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
+        .job-listing h3 { color: var(--accent-color); margin-bottom: 10px; }
+        .job-tag { display: inline-block; background: #e8f4ff; color: var(--accent-color); padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; margin: 5px; }
+        .apply-btn { display: inline-block; padding: 10px 25px; background: var(--accent-color); color: white; text-decoration: none; border-radius: 5px; margin-top: 15px; }
+        
+        footer { background: white; padding: 40px 0; text-align: center; margin-top: 60px; }
+        .back-btn { display: inline-block; margin-top: 30px; padding: 12px 30px; background: var(--accent-color); color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo">MagTec Invest</div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="careers-header">
+        <div class="container">
+            <h1>Join Our Team</h1>
+            <p>Help shape the future of technology investment</p>
+        </div>
+    </section>
+    
+    <section class="container">
+        <div style="background: white; padding: 40px; border-radius: 10px; margin-bottom: 40px;">
+            <h2>Why Work With Us</h2>
+            <p>At MagTec Invest, we're building a diverse team of innovators, thinkers, and problem-solvers. We offer competitive compensation, comprehensive benefits, and opportunities for professional growth.</p>
+        </div>
+        
+        <h2>Current Openings</h2>
+        
+        <div class="job-listing">
+            <h3>Investment Analyst</h3>
+            <div>
+                <span class="job-tag">Full-time</span>
+                <span class="job-tag">San Francisco</span>
+                <span class="job-tag">Remote Possible</span>
+            </div>
+            <p>We're looking for an Investment Analyst to join our team. You'll be responsible for conducting due diligence, financial modeling, and market research for potential investments.</p>
+            <a href="#" class="apply-btn">Apply Now</a>
+        </div>
+        
+        <div class="job-listing">
+            <h3>Senior Software Engineer</h3>
+            <div>
+                <span class="job-tag">Full-time</span>
+                <span class="job-tag">Remote</span>
+                <span class="job-tag">Engineering</span>
+            </div>
+            <p>Join our engineering team to build tools and platforms that help us identify and evaluate investment opportunities using data science and machine learning.</p>
+            <a href="#" class="apply-btn">Apply Now</a>
+        </div>
+        
+        <div class="job-listing">
+            <h3>Marketing Manager</h3>
+            <div>
+                <span class="job-tag">Full-time</span>
+                <span class="job-tag">New York</span>
+                <span class="job-tag">Marketing</span>
+            </div>
+            <p>Develop and execute marketing strategies to build our brand and connect with entrepreneurs and investment opportunities.</p>
+            <a href="#" class="apply-btn">Apply Now</a>
+        </div>
+        
+        <div style="text-align: center; margin: 50px 0;">
+            <p>Don't see a role that matches your skills? Send your resume to <strong>careers@magtecinvest.com</strong></p>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MagTec Invest. All rights reserved.</p>
+            <a href="index.html" class="back-btn">Back to Home</a>
+        </div>
+    </footer>
+    
+    <script>
+        // Make apply buttons functional
+        document.querySelectorAll('.apply-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('To apply, please send your resume and cover letter to careers@magtecinvest.com with the job title in the subject line.');
+            });
+        });
+    </script>
+</body>
+</html>
