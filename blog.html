@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - MagTec Invest</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --cream-white: #FFFDD0;
+            --accent-color: #2A5C82;
+            --dark-text: #333333;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--cream-white); color: var(--dark-text); }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        header { background: white; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo { font-size: 24px; font-weight: bold; color: var(--accent-color); }
+        nav a { margin-right: 20px; text-decoration: none; color: var(--dark-text); }
+        nav a:hover { color: var(--accent-color); }
+        
+        .blog-header { text-align: center; padding: 60px 0; }
+        .blog-header h1 { font-size: 3rem; color: var(--accent-color); margin-bottom: 20px; }
+        
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; padding: 40px 0; }
+        .blog-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .blog-card img { width: 100%; height: 200px; object-fit: cover; }
+        .blog-content { padding: 30px; }
+        .blog-content h3 { color: var(--accent-color); margin-bottom: 15px; }
+        .blog-meta { color: #666; font-size: 0.9rem; margin-bottom: 15px; }
+        
+        footer { background: white; padding: 40px 0; text-align: center; margin-top: 60px; }
+        .back-btn { display: inline-block; margin-top: 30px; padding: 12px 30px; background: var(--accent-color); color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo">MagTec Invest</div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="blog-header">
+        <div class="container">
+            <h1>Insights & Analysis</h1>
+            <p>Thought leadership on technology investments and market trends</p>
+        </div>
+    </section>
+    
+    <section class="container">
+        <div class="blog-grid">
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="AI Technology">
+                <div class="blog-content">
+                    <h3>The Future of AI Investment in 2024</h3>
+                    <div class="blog-meta">March 15, 2024 • 8 min read</div>
+                    <p>Exploring the most promising AI sectors for investment and emerging trends that will shape the industry.</p>
+                </div>
+            </div>
+            
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="FinTech">
+                <div class="blog-content">
+                    <h3>FinTech Revolution: Opportunities Ahead</h3>
+                    <div class="blog-meta">February 28, 2024 • 6 min read</div>
+                    <p>How regulatory changes and technological innovations are creating new FinTech investment opportunities.</p>
+                </div>
+            </div>
+            
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Sustainability">
+                <div class="blog-content">
+                    <h3>Sustainable Tech: Investing with Impact</h3>
+                    <div class="blog-meta">January 22, 2024 • 10 min read</div>
+                    <p>Balancing financial returns with environmental impact in technology investments.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 50px 0;">
+            <p>More articles coming soon. Subscribe to our newsletter for updates.</p>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MagTec Invest. All rights reserved.</p>
+            <a href="index.html" class="back-btn">Back to Home</a>
+        </div>
+    </footer>
+</body>
+</html>
