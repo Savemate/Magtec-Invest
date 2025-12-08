@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavigation();
     initAnimations();
     initContactForm();
-    initStatsCounter();
     initBackToTop();
-    initParticles();
+    initProgressBars();
     initModal();
     initScrollSpy();
     initFormValidation();
+    initCountdown();
     updateCopyrightYear();
     
     // Add loading animation
@@ -65,33 +65,94 @@ function initAnimations() {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animate');
                 
-                // Start counters if element has counter
-                if (entry.target.querySelector('.stat-number')) {
-                    startCounterAnimation(entry.target);
+                // Animate progress bars if element has them
+                if (entry.target.querySelector('.progress-ring-circle')) {
+                    animateProgressBars(entry.target);
                 }
             }
         });
     }, observerOptions);
 
     // Observe all animated elements
-    document.querySelectorAll('.service-card, .info-card, .portfolio-item, .detail-card').forEach(el => {
+    document.querySelectorAll('.service-card, .info-card, .detail-card, .design-shape').forEach(el => {
         observer.observe(el);
     });
 
-    // Floating cards animation
-    const floatingCards = document.querySelectorAll('.floating-card');
-    floatingCards.forEach((card, index) => {
-        card.style.animationDelay = `${index * 0.5}s`;
+    // Animate design shapes
+    const designShapes = document.querySelectorAll('.design-shape');
+    designShapes.forEach((shape, index) => {
+        shape.style.animationDelay = `${index * 0.2}s`;
+        
+        // Add hover effect
+        shape.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.2) rotate(15deg)';
+        });
+        
+        shape.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1) rotate(0deg)';
+        });
     });
 
-    // Globe rotation
-    const globe = document.querySelector('.globe');
-    if (globe) {
-        window.addEventListener('scroll', function() {
-            const scrollY = window.scrollY;
-            globe.style.transform = `translate(-50%, -50%) rotate(${scrollY * 0.2}deg)`;
-        });
-    }
+    // Animate color swatches
+    const colorSwatches = document.querySelectorAll('.color-swatch');
+    colorSwatches.forEach((swatch, index) => {
+        swatch.style.animationDelay = `${index * 0.3}s`;
+    });
+}
+
+// Initialize Progress Bars
+function initProgressBars() {
+    const progressBars = document.querySelectorAll('.progress-ring-circle');
+    
+    progressBars.forEach(bar => {
+        const circle = bar;
+        const radius = circle.r.baseVal.value;
+        const circumference = radius * 2 * Math.PI;
+        const parent = bar.closest('.expertise-progress');
+        const skillValue = parent ? parent.getAttribute('data-skill') : 0;
+        
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = circumference;
+        
+        // Store the target progress
+        circle.dataset.target = skillValue;
+        circle.dataset.circumference = circumference;
+    });
+}
+
+// Animate Progress Bars
+function animateProgressBars(container) {
+    const progressBars = container.querySelectorAll('.progress-ring-circle');
+    
+    progressBars.forEach(bar => {
+        const target = parseInt(bar.dataset.target);
+        const circumference = parseFloat(bar.dataset.circumference);
+        const offset = circumference - (target / 100) * circumference;
+        
+        // Animate the stroke
+        bar.style.transition = 'stroke-dashoffset 2s ease-in-out';
+        bar.style.strokeDashoffset = offset;
+        
+        // Animate the percentage text
+        const valueElement = bar.parentElement.querySelector('.progress-value');
+        if (valueElement) {
+            animateCounter(valueElement, target);
+        }
+    });
+}
+
+// Animate Counter
+function animateCounter(element, target) {
+    let current = 0;
+    const increment = target / 50; // 2 second animation at 25fps
+    const interval = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            current = target;
+            clearInterval(interval);
+        }
+        element.textContent = `${Math.floor(current)}%`;
+    }, 40);
 }
 
 // Initialize Contact Form
@@ -180,13 +241,6 @@ Message:
 ${formData.message}
     `.trim();
 
-    // In production, you would use:
-    // fetch('/api/send-email', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ email: formData.email, body: emailBody })
-    // })
-
     console.log('Email would be sent with data:', formData);
 }
 
@@ -200,8 +254,8 @@ function showFormError(message) {
         <span>${message}</span>
     `;
     errorDiv.style.cssText = `
-        background: linear-gradient(135deg, #dc3545, #c82333);
-        color: white;
+        background: linear-gradient(135deg, #444, #222);
+        color: #FFFDD0;
         padding: 15px 20px;
         border-radius: 8px;
         margin: 20px 0;
@@ -209,6 +263,7 @@ function showFormError(message) {
         align-items: center;
         gap: 10px;
         animation: slideIn 0.3s ease;
+        border: 1px solid rgba(255,253,208,0.2);
     `;
 
     const form = document.getElementById('contactForm');
@@ -232,8 +287,8 @@ function showSuccessMessage() {
         <span>Thank you! Your message has been sent successfully.</span>
     `;
     successDiv.style.cssText = `
-        background: linear-gradient(135deg, #28a745, #218838);
-        color: white;
+        background: linear-gradient(135deg, #666, #444);
+        color: #FFFDD0;
         padding: 15px 20px;
         border-radius: 8px;
         margin: 20px 0;
@@ -241,6 +296,7 @@ function showSuccessMessage() {
         align-items: center;
         gap: 10px;
         animation: slideIn 0.3s ease;
+        border: 1px solid rgba(255,253,208,0.2);
     `;
 
     const form = document.getElementById('contactForm');
@@ -252,41 +308,6 @@ function showSuccessMessage() {
         successDiv.style.animation = 'slideOut 0.3s ease';
         setTimeout(() => successDiv.remove(), 300);
     }, 5000);
-}
-
-// Initialize Stats Counter
-function initStatsCounter() {
-    const statNumbers = document.querySelectorAll('.stat-number');
-
-    const startCounterAnimation = (element) => {
-        const target = parseInt(element.getAttribute('data-count'));
-        const duration = 2000; // 2 seconds
-        const increment = target / (duration / 16); // 60fps
-        let current = 0;
-
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                current = target;
-                clearInterval(timer);
-            }
-            element.textContent = Math.floor(current).toLocaleString();
-        }, 16);
-    };
-
-    // Create observer for counter elements
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                startCounterAnimation(entry.target);
-                counterObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    statNumbers.forEach(stat => {
-        counterObserver.observe(stat);
-    });
 }
 
 // Initialize Back to Top Button
@@ -310,92 +331,6 @@ function initBackToTop() {
         });
     });
 }
-
-// Initialize Particles
-function initParticles() {
-    const container = document.querySelector('.particles-container');
-    if (!container) return;
-
-    const particleCount = 50;
-
-    for (let i = 0; i < particleCount; i++) {
-        createParticle(container);
-    }
-}
-
-function createParticle(container) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    
-    // Random properties
-    const size = Math.random() * 4 + 1;
-    const posX = Math.random() * 100;
-    const posY = Math.random() * 100;
-    const duration = Math.random() * 20 + 10;
-    const delay = Math.random() * 5;
-    const opacity = Math.random() * 0.5 + 0.1;
-    
-    // Apply styles
-    particle.style.cssText = `
-        position: absolute;
-        width: ${size}px;
-        height: ${size}px;
-        background: linear-gradient(135deg, 
-            rgba(0,123,255,${opacity}) 0%,
-            rgba(23,162,184,${opacity}) 100%);
-        border-radius: 50%;
-        top: ${posY}%;
-        left: ${posX}%;
-        animation: floatParticle ${duration}s linear infinite ${delay}s;
-        pointer-events: none;
-    `;
-    
-    container.appendChild(particle);
-}
-
-// Add particle animation to CSS
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes floatParticle {
-        0% {
-            transform: translate(0, 0) rotate(0deg);
-            opacity: 0;
-        }
-        10% {
-            opacity: 1;
-        }
-        90% {
-            opacity: 1;
-        }
-        100% {
-            transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) rotate(360deg);
-            opacity: 0;
-        }
-    }
-
-    @keyframes slideIn {
-        from {
-            transform: translateY(-20px);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-
-    @keyframes slideOut {
-        from {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateY(-20px);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
 
 // Initialize Modal
 function initModal() {
@@ -462,7 +397,7 @@ function initFormValidation() {
             input.addEventListener('focus', () => {
                 label.style.top = '-10px';
                 label.style.fontSize = '14px';
-                label.style.color = '#007BFF';
+                label.style.color = '#222222';
             });
 
             // Handle input blur
@@ -470,7 +405,7 @@ function initFormValidation() {
                 if (!input.value && input.type !== 'select-one') {
                     label.style.top = '15px';
                     label.style.fontSize = '1rem';
-                    label.style.color = '#6c757d';
+                    label.style.color = '#888888';
                 }
             });
 
@@ -480,7 +415,7 @@ function initFormValidation() {
                     if (input.value) {
                         label.style.top = '-10px';
                         label.style.fontSize = '14px';
-                        label.style.color = '#007BFF';
+                        label.style.color = '#222222';
                     }
                 });
             }
@@ -489,10 +424,76 @@ function initFormValidation() {
             if (input.value) {
                 label.style.top = '-10px';
                 label.style.fontSize = '14px';
-                label.style.color = '#007BFF';
+                label.style.color = '#222222';
             }
         }
     });
+}
+
+// Initialize Countdown
+function initCountdown() {
+    // Set launch date (example: 3 months from now)
+    const launchDate = new Date();
+    launchDate.setMonth(launchDate.getMonth() + 3);
+    
+    function updateCountdown() {
+        const now = new Date();
+        const difference = launchDate - now;
+        
+        if (difference > 0) {
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            
+            // Update display
+            const timeUnits = document.querySelectorAll('.time-unit');
+            if (timeUnits.length >= 3) {
+                timeUnits[0].querySelector('.number').textContent = days.toString().padStart(2, '0');
+                timeUnits[1].querySelector('.number').textContent = hours.toString().padStart(2, '0');
+                timeUnits[2].querySelector('.number').textContent = minutes.toString().padStart(2, '0');
+            }
+        }
+    }
+    
+    // Update immediately and then every minute
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+    
+    // Notify form submission
+    const notifyForm = document.querySelector('.notify-input');
+    if (notifyForm) {
+        const button = notifyForm.querySelector('button');
+        const input = notifyForm.querySelector('input');
+        
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            if (input.value && validateEmail(input.value)) {
+                // Show success message
+                const originalText = button.textContent;
+                button.textContent = 'Subscribed!';
+                button.style.background = '#666';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '';
+                    input.value = '';
+                }, 2000);
+            } else {
+                // Show error
+                input.style.borderColor = '#ff4444';
+                setTimeout(() => {
+                    input.style.borderColor = '';
+                }, 2000);
+            }
+        });
+    }
+}
+
+// Email validation helper
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
 }
 
 // Update Copyright Year
@@ -523,32 +524,46 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Preload Images
-function preloadImages() {
-    const images = [
-        'https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-1.2.1&auto=format&fit=crop&w-1200&q=80',
-        'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80'
-    ];
+// Add CSS animations for notifications
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
 
-    images.forEach(src => {
-        const img = new Image();
-        img.src = src;
-    });
-}
+    @keyframes slideOut {
+        from {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
 
 // Initialize on load
 window.addEventListener('load', function() {
-    preloadImages();
-    
-    // Remove loading class
-    document.body.classList.add('loaded');
-    
     // Add loaded class to specific elements
     document.querySelectorAll('.hero-title .title-line').forEach((line, index) => {
         setTimeout(() => {
             line.style.animationDelay = `${index * 0.2}s`;
         }, 100);
+    });
+    
+    // Animate design elements
+    const elements = document.querySelectorAll('.element');
+    elements.forEach((element, index) => {
+        element.style.animationDelay = `${index * 0.5}s`;
     });
 });
 
