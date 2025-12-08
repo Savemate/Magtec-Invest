@@ -2,10 +2,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
     initNavigation();
-    initAnimations();
     initContactForm();
     initScrollSpy();
-    initNotifications();
     updateCopyrightYear();
     
     // Add smooth page load
@@ -43,59 +41,6 @@ function initNavigation() {
             }
         });
     }
-}
-
-// Animations
-function initAnimations() {
-    // Animate elements on scroll
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate');
-                
-                // Animate skill bars
-                if (entry.target.querySelector('.skill-progress')) {
-                    animateSkills();
-                }
-            }
-        });
-    }, observerOptions);
-
-    // Observe all cards and sections
-    document.querySelectorAll('.service-card, .feature, .info-card, .savemate-info').forEach(el => {
-        observer.observe(el);
-    });
-
-    // Animate grid items
-    const gridItems = document.querySelectorAll('.grid-item');
-    gridItems.forEach((item, index) => {
-        item.style.animationDelay = `${index * 0.3}s`;
-    });
-
-    // Animate color chips
-    const colorChips = document.querySelectorAll('.color-chip');
-    colorChips.forEach((chip, index) => {
-        chip.style.animationDelay = `${index * 0.2}s`;
-    });
-}
-
-// Animate skill bars
-function animateSkills() {
-    const skillBars = document.querySelectorAll('.skill-progress');
-    skillBars.forEach(bar => {
-        const targetWidth = bar.style.width;
-        bar.style.width = '0';
-        
-        setTimeout(() => {
-            bar.style.transition = 'width 1.5s ease-in-out';
-            bar.style.width = targetWidth;
-        }, 300);
-    });
 }
 
 // Contact Form
@@ -140,7 +85,7 @@ function initContactForm() {
             submitBtn.innerHTML = originalBtnText;
             submitBtn.disabled = false;
             
-            // Log form data (in production, send to server)
+            // Log form data
             console.log('Form submitted:', formData);
         }, 1500);
     });
@@ -161,7 +106,7 @@ function initContactForm() {
             input.addEventListener('blur', () => {
                 if (!input.value) {
                     label.style.color = '#888888';
-                    label.style.fontSize = '1rem';
+                    label.style.fontSize = '0.95rem';
                     label.style.top = '1rem';
                 }
             });
@@ -220,12 +165,12 @@ function showNotification(message, type = 'info') {
         display: flex;
         align-items: center;
         gap: 10px;
-        min-width: 300px;
-        max-width: 400px;
+        max-width: 350px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         z-index: 10000;
         animation: slideIn 0.3s ease;
         border: 1px solid rgba(255,253,208,0.1);
+        font-size: 0.95rem;
     `;
     
     // Add animation styles
@@ -270,6 +215,8 @@ function initScrollSpy() {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
     
+    if (sections.length === 0 || navLinks.length === 0) return;
+    
     window.addEventListener('scroll', () => {
         let current = '';
         
@@ -288,46 +235,6 @@ function initScrollSpy() {
                 link.classList.add('active');
             }
         });
-    });
-}
-
-// Notification form
-function initNotifications() {
-    const notifyForm = document.querySelector('.notify-form');
-    if (!notifyForm) return;
-    
-    const button = notifyForm.querySelector('button');
-    const input = notifyForm.querySelector('input');
-    
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const email = input.value.trim();
-        
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            showNotification('Please enter a valid email address.', 'error');
-            input.style.borderColor = '#ff4444';
-            setTimeout(() => {
-                input.style.borderColor = '';
-            }, 2000);
-            return;
-        }
-        
-        // Show success
-        showNotification('You will be notified when Savemate launches!', 'success');
-        
-        // Reset form
-        input.value = '';
-        
-        // Button feedback
-        const originalText = button.textContent;
-        button.textContent = 'Subscribed!';
-        button.style.background = '#666666';
-        
-        setTimeout(() => {
-            button.textContent = originalText;
-            button.style.background = '';
-        }, 2000);
     });
 }
 
@@ -359,46 +266,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Newsletter subscription
-const newsletterForm = document.querySelector('.newsletter-form');
-if (newsletterForm) {
-    const button = newsletterForm.querySelector('button');
-    const input = newsletterForm.querySelector('input');
-    
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const email = input.value.trim();
-        
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            showNotification('Please enter a valid email address.', 'error');
-            return;
-        }
-        
-        // Show success
-        showNotification('Successfully subscribed to our newsletter!', 'success');
-        
-        // Reset form
-        input.value = '';
-        
-        // Button animation
-        this.style.transform = 'rotate(360deg)';
-        setTimeout(() => {
-            this.style.transform = '';
-        }, 300);
-    });
-}
-
-// Initialize animations on load
+// Initialize on load
 window.addEventListener('load', function() {
-    // Trigger initial animations
-    setTimeout(() => {
-        document.querySelectorAll('.grid-item').forEach((item, index) => {
-            setTimeout(() => {
-                item.style.animation = 'float 3s ease-in-out infinite';
-            }, index * 100);
-        });
-    }, 500);
+    // Add any on-load animations here
 });
 
 // Handle window resize
