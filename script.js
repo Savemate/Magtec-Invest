@@ -12,52 +12,92 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.classList.add('loaded');
 });
 
-// Navigation
+// Navigation - HAMBURGER MENU FIXED!
 function initNavigation() {
     const mobileMenu = document.getElementById('mobileMenu');
     const navMenu = document.getElementById('navMenu');
     const navLinks = document.querySelectorAll('.nav-link');
+    const navCta = document.querySelector('.nav-cta');
     
-    // Mobile menu toggle
-    if (mobileMenu && navMenu) {
-        mobileMenu.addEventListener('click', function(e) {
-            e.stopPropagation();
-            this.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            
-            // Update aria-expanded
-            const expanded = this.classList.contains('active');
-            this.setAttribute('aria-expanded', expanded);
-        });
+    if (!mobileMenu || !navMenu) return;
+    
+    // Mobile menu toggle - FIXED VERSION
+    mobileMenu.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
         
-        // Close menu when clicking a link
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
+        // Toggle active classes
+        this.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        
+        // Update aria-expanded
+        const expanded = this.classList.contains('active');
+        this.setAttribute('aria-expanded', expanded.toString());
+        
+        // Toggle body scroll
+        if (expanded) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Close menu when clicking a link - FIXED
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Only close on mobile
+            if (window.innerWidth <= 768) {
                 mobileMenu.classList.remove('active');
                 navMenu.classList.remove('active');
                 mobileMenu.setAttribute('aria-expanded', 'false');
-            });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.nav-container') && 
-                navMenu.classList.contains('active')) {
-                mobileMenu.classList.remove('active');
-                navMenu.classList.remove('active');
-                mobileMenu.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
             }
         });
-        
-        // Close menu on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+    });
+    
+    // Also close when clicking CTA button
+    if (navCta) {
+        navCta.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
                 mobileMenu.classList.remove('active');
                 navMenu.classList.remove('active');
                 mobileMenu.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
             }
         });
     }
+    
+    // Close menu when clicking outside - FIXED
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.nav-container') && 
+            !e.target.closest('.nav-toggle') &&
+            navMenu.classList.contains('active')) {
+            mobileMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+            mobileMenu.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            mobileMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+            mobileMenu.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Close menu on window resize if switching to desktop
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+            mobileMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+            mobileMenu.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+    });
 }
 
 // Contact Form
@@ -70,36 +110,38 @@ function initContactForm() {
     const interestSelect = document.getElementById('interest');
     const dynamicFields = document.getElementById('dynamicFields');
     
-    interestSelect.addEventListener('change', function() {
-        dynamicFields.innerHTML = '';
-        
-        if (this.value === 'investment') {
-            dynamicFields.innerHTML = `
-                <div class="form-group">
-                    <input type="text" id="businessStage" placeholder=" ">
-                    <label for="businessStage">Business Stage *</label>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="fundingAmount" placeholder=" ">
-                    <label for="fundingAmount">Funding Amount Needed *</label>
-                </div>
-            `;
-        }
-        
-        // Reinitialize form field interactions for new fields
-        initFormFieldInteractions();
-    });
+    if (interestSelect && dynamicFields) {
+        interestSelect.addEventListener('change', function() {
+            dynamicFields.innerHTML = '';
+            
+            if (this.value === 'investment') {
+                dynamicFields.innerHTML = `
+                    <div class="form-group">
+                        <input type="text" id="businessStage" placeholder=" ">
+                        <label for="businessStage">Business Stage *</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="fundingAmount" placeholder=" ">
+                        <label for="fundingAmount">Funding Amount Needed *</label>
+                    </div>
+                `;
+                
+                // Initialize new form fields
+                setTimeout(initFormFieldInteractions, 10);
+            }
+        });
+    }
     
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
         // Get form data
         const formData = {
-            name: document.getElementById('name').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            company: document.getElementById('company').value.trim(),
-            interest: interestSelect.value,
-            message: document.getElementById('message').value.trim()
+            name: document.getElementById('name')?.value.trim() || '',
+            email: document.getElementById('email')?.value.trim() || '',
+            company: document.getElementById('company')?.value.trim() || '',
+            interest: interestSelect?.value || '',
+            message: document.getElementById('message')?.value.trim() || ''
         };
         
         // Add dynamic fields if they exist
@@ -132,7 +174,7 @@ function initContactForm() {
             contactForm.reset();
             
             // Reset dynamic fields
-            dynamicFields.innerHTML = '';
+            if (dynamicFields) dynamicFields.innerHTML = '';
             
             // Reset button
             submitBtn.innerHTML = originalBtnText;
@@ -140,9 +182,6 @@ function initContactForm() {
             
             // Reset form field states
             initFormFieldInteractions();
-            
-            // Log form data
-            console.log('Form submitted:', formData);
         }, 1500);
     });
     
@@ -158,12 +197,25 @@ function initFormFieldInteractions() {
         const label = group.querySelector('label');
         
         if (input && label) {
-            // Check initial state
-            if (input.value || input.tagName === 'SELECT' && input.value !== '') {
-                label.style.color = '#222222';
-                label.style.fontSize = '0.85rem';
-                label.style.top = '-0.5rem';
+            // Initialize placeholder for better UX
+            if (!input.hasAttribute('placeholder')) {
+                input.setAttribute('placeholder', ' ');
             }
+            
+            // Check initial state
+            const checkState = () => {
+                if (input.value || (input.tagName === 'SELECT' && input.value !== '')) {
+                    label.style.color = '#222222';
+                    label.style.fontSize = '0.85rem';
+                    label.style.top = '-0.5rem';
+                } else {
+                    label.style.color = '#888888';
+                    label.style.fontSize = '0.95rem';
+                    label.style.top = '1rem';
+                }
+            };
+            
+            checkState(); // Initial check
             
             input.addEventListener('focus', () => {
                 label.style.color = '#222222';
@@ -171,13 +223,13 @@ function initFormFieldInteractions() {
                 label.style.top = '-0.5rem';
             });
             
-            input.addEventListener('blur', () => {
-                if (!input.value || (input.tagName === 'SELECT' && input.value === '')) {
-                    label.style.color = '#888888';
-                    label.style.fontSize = '0.95rem';
-                    label.style.top = '1rem';
-                }
-            });
+            input.addEventListener('blur', checkState);
+            
+            // Also check on input change
+            input.addEventListener('input', checkState);
+            if (input.tagName === 'SELECT') {
+                input.addEventListener('change', checkState);
+            }
         }
     });
 }
@@ -276,13 +328,14 @@ function showNotification(message, type = 'info') {
     document.body.appendChild(notification);
     
     // Auto-remove after 5 seconds
-    setTimeout(() => {
+    const removeTimeout = setTimeout(() => {
         notification.style.animation = 'slideOut 0.3s ease';
         setTimeout(() => notification.remove(), 300);
     }, 5000);
     
     // Remove on click
     notification.addEventListener('click', () => {
+        clearTimeout(removeTimeout);
         notification.style.animation = 'slideOut 0.3s ease';
         setTimeout(() => notification.remove(), 300);
     });
@@ -295,7 +348,7 @@ function initScrollSpy() {
     
     if (sections.length === 0 || navLinks.length === 0) return;
     
-    window.addEventListener('scroll', () => {
+    const scrollSpy = () => {
         let current = '';
         
         sections.forEach(section => {
@@ -313,7 +366,10 @@ function initScrollSpy() {
                 link.classList.add('active');
             }
         });
-    });
+    };
+    
+    window.addEventListener('scroll', scrollSpy);
+    scrollSpy(); // Initialize on load
 }
 
 // Cookies Popup
@@ -323,6 +379,8 @@ function initCookiesPopup() {
     const rejectCookiesBtn = document.getElementById('rejectCookies');
     const privacyPolicyLink = document.getElementById('privacyPolicy');
     const cookiePolicyLink = document.getElementById('cookiePolicy');
+    
+    if (!cookiesPopup) return;
     
     // Check if user already made a choice
     const cookiesAccepted = localStorage.getItem('cookiesAccepted');
@@ -335,38 +393,40 @@ function initCookiesPopup() {
     }
     
     // Accept cookies
-    acceptCookiesBtn.addEventListener('click', () => {
-        localStorage.setItem('cookiesAccepted', 'true');
-        cookiesPopup.classList.remove('show');
-        showNotification('Cookie preferences saved.', 'success');
-        
-        // Here you would initialize analytics cookies
-        console.log('Analytics cookies enabled');
-    });
+    if (acceptCookiesBtn) {
+        acceptCookiesBtn.addEventListener('click', () => {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookiesPopup.classList.remove('show');
+            showNotification('Cookie preferences saved.', 'success');
+            console.log('Analytics cookies enabled');
+        });
+    }
     
     // Reject non-essential cookies
-    rejectCookiesBtn.addEventListener('click', () => {
-        localStorage.setItem('cookiesAccepted', 'false');
-        cookiesPopup.classList.remove('show');
-        showNotification('Only essential cookies enabled.', 'info');
-        
-        // Here you would only set essential cookies
-        console.log('Only essential cookies enabled');
-    });
+    if (rejectCookiesBtn) {
+        rejectCookiesBtn.addEventListener('click', () => {
+            localStorage.setItem('cookiesAccepted', 'false');
+            cookiesPopup.classList.remove('show');
+            showNotification('Only essential cookies enabled.', 'info');
+            console.log('Only essential cookies enabled');
+        });
+    }
     
     // Privacy policy link
-    privacyPolicyLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showNotification('Privacy policy page would open here.', 'info');
-        // window.open('privacy-policy.html', '_blank');
-    });
+    if (privacyPolicyLink) {
+        privacyPolicyLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showNotification('Privacy policy page would open here.', 'info');
+        });
+    }
     
     // Cookie policy link
-    cookiePolicyLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showNotification('Cookie policy page would open here.', 'info');
-        // window.open('cookie-policy.html', '_blank');
-    });
+    if (cookiePolicyLink) {
+        cookiePolicyLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showNotification('Cookie policy page would open here.', 'info');
+        });
+    }
     
     // Close popup on escape key
     document.addEventListener('keydown', (e) => {
@@ -383,13 +443,16 @@ function initReturnToTop() {
     if (!returnToTopBtn) return;
     
     // Show/hide button based on scroll position
-    window.addEventListener('scroll', () => {
+    const toggleReturnButton = () => {
         if (window.scrollY > 300) {
             returnToTopBtn.classList.add('show');
         } else {
             returnToTopBtn.classList.remove('show');
         }
-    });
+    };
+    
+    window.addEventListener('scroll', toggleReturnButton);
+    toggleReturnButton(); // Check initial state
     
     // Scroll to top when clicked
     returnToTopBtn.addEventListener('click', () => {
@@ -399,7 +462,9 @@ function initReturnToTop() {
         });
         
         // Focus on navigation for accessibility
-        document.querySelector('.navbar').focus();
+        setTimeout(() => {
+            document.querySelector('.navbar').focus();
+        }, 100);
     });
 }
 
@@ -412,30 +477,38 @@ function updateCopyrightYear() {
 }
 
 // Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            e.preventDefault();
-            const offsetTop = targetElement.offsetTop - 80;
+function initSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#' || targetId === '#!') return;
             
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
-            
-            // Update URL hash
-            history.pushState(null, null, targetId);
-        }
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                e.preventDefault();
+                const offsetTop = targetElement.offsetTop - 80;
+                
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+                
+                // Update URL hash without scrolling
+                if (history.pushState) {
+                    history.pushState(null, null, targetId);
+                } else {
+                    location.hash = targetId;
+                }
+            }
+        });
     });
-});
+}
+
+// Initialize smooth scrolling
+initSmoothScrolling();
 
 // Initialize on load
 window.addEventListener('load', function() {
-    // Add any on-load animations here
     document.body.classList.add('loaded');
 });
 
@@ -444,18 +517,6 @@ let resizeTimer;
 window.addEventListener('resize', function() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function() {
-        // Recalculate anything if needed
+        // Re-initialize components if needed
     }, 250);
-});
-
-// Accessibility improvements
-document.addEventListener('keydown', function(e) {
-    // Tab key navigation
-    if (e.key === 'Tab') {
-        document.body.classList.add('keyboard-navigation');
-    }
-});
-
-document.addEventListener('mousedown', function() {
-    document.body.classList.remove('keyboard-navigation');
 });
