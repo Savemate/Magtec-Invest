@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body class="resume-page">
@@ -52,8 +52,71 @@
                     Create Your Professional Resume
                 </h1>
                 <p class="section-subtitle">
-                    Fill in your details and download a professionally designed resume in PDF format
+                    Choose a template, fill in your details, and download a professional resume in PDF format
                 </p>
+            </div>
+            
+            <!-- Template Selection -->
+            <div class="template-selection">
+                <h3><i class="fas fa-palette"></i> Choose a Template</h3>
+                <div class="template-options">
+                    <div class="template-option active" data-template="modern">
+                        <div class="template-preview">
+                            <div class="template-sample modern-template">
+                                <div class="sample-header">
+                                    <h4>Modern</h4>
+                                </div>
+                                <div class="sample-content">
+                                    <div class="sample-line"></div>
+                                    <div class="sample-line short"></div>
+                                    <div class="sample-line"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-info">
+                            <h4>Modern</h4>
+                            <p>Clean, professional design with emphasis on skills</p>
+                        </div>
+                    </div>
+                    
+                    <div class="template-option" data-template="classic">
+                        <div class="template-preview">
+                            <div class="template-sample classic-template">
+                                <div class="sample-header">
+                                    <h4>Classic</h4>
+                                </div>
+                                <div class="sample-content">
+                                    <div class="sample-line"></div>
+                                    <div class="sample-line short"></div>
+                                    <div class="sample-line"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-info">
+                            <h4>Classic</h4>
+                            <p>Traditional format with clear section separation</p>
+                        </div>
+                    </div>
+                    
+                    <div class="template-option" data-template="executive">
+                        <div class="template-preview">
+                            <div class="template-sample executive-template">
+                                <div class="sample-header">
+                                    <h4>Executive</h4>
+                                </div>
+                                <div class="sample-content">
+                                    <div class="sample-line"></div>
+                                    <div class="sample-line short"></div>
+                                    <div class="sample-line"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-info">
+                            <h4>Executive</h4>
+                            <p>Premium design for senior-level professionals</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="resume-container">
@@ -191,7 +254,13 @@
                 <!-- Live Preview Section -->
                 <div class="resume-preview-container">
                     <div class="preview-header">
-                        <h3><i class="fas fa-file-alt"></i> Resume Preview</h3>
+                        <div class="preview-title">
+                            <h3><i class="fas fa-file-alt"></i> Resume Preview</h3>
+                            <div class="selected-template">
+                                <span>Template: </span>
+                                <span id="currentTemplateName">Modern</span>
+                            </div>
+                        </div>
                         <div class="preview-actions">
                             <button id="downloadResume" class="btn btn-dark" disabled>
                                 <i class="fas fa-download"></i> Download PDF
