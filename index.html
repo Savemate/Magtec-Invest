@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MagTec Invest | Creative Investment & Design</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,11 +44,11 @@
                 </div>
             </div>
             
-            <div class="nav-toggle" id="mobileMenu" aria-label="Toggle menu" aria-expanded="false">
+            <button class="nav-toggle" id="mobileMenu" aria-label="Toggle menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
-            </div>
+            </button>
             
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link active">Home</a></li>
@@ -56,9 +56,7 @@
                 <li><a href="#services" class="nav-link">Services</a></li>
                 <li><a href="#savemate" class="nav-link">Savemate</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
-                <li class="nav-cta-group">
-                    <a href="#contact" class="nav-cta nav-cta-invest">Start Project</a>
-                </li>
+                <li><a href="#contact" class="nav-cta">Start Project</a></li>
             </ul>
         </div>
     </nav>
@@ -429,17 +427,17 @@
                         <p>Tell us about your creative needs or business idea</p>
                         
                         <div class="form-group">
-                            <input type="text" id="name" required>
+                            <input type="text" id="name" required placeholder=" ">
                             <label for="name">Full Name *</label>
                         </div>
                         
                         <div class="form-group">
-                            <input type="email" id="email" required>
+                            <input type="email" id="email" required placeholder=" ">
                             <label for="email">Email Address *</label>
                         </div>
                         
                         <div class="form-group">
-                            <input type="text" id="company">
+                            <input type="text" id="company" placeholder=" ">
                             <label for="company">Company/Business</label>
                         </div>
                         
@@ -459,7 +457,7 @@
                         <div id="dynamicFields"></div>
                         
                         <div class="form-group">
-                            <textarea id="message" rows="5" required></textarea>
+                            <textarea id="message" rows="5" required placeholder=" "></textarea>
                             <label for="message">Your Message *</label>
                         </div>
                         
@@ -505,7 +503,6 @@
                         <a href="#contact">Contact</a>
                     </div>
                     
-                    <!-- Added spacing between link groups -->
                     <div class="link-group-spacer"></div>
                     
                     <div class="link-group">
