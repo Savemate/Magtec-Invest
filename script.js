@@ -1,5 +1,7 @@
 // DOM Ready
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('MagTec Invest Website - Initializing...');
+    
     // Initialize all components
     initNavigation();
     initContactForm();
@@ -8,90 +10,170 @@ document.addEventListener('DOMContentLoaded', function() {
     initReturnToTop();
     updateCopyrightYear();
     
-    // Add smooth page load
-    document.body.classList.add('loaded');
+    console.log('All components initialized successfully!');
 });
 
-// Navigation
+// ===== NAVIGATION - Hamburger Menu =====
 function initNavigation() {
+    console.log('Initializing navigation...');
+    
     const mobileMenu = document.getElementById('mobileMenu');
     const navMenu = document.getElementById('navMenu');
-    const navLinks = document.querySelectorAll('.nav-link');
     
-    // Mobile menu toggle
-    if (mobileMenu && navMenu) {
-        mobileMenu.addEventListener('click', function(e) {
-            e.stopPropagation();
-            this.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            
-            // Update aria-expanded
-            const expanded = this.classList.contains('active');
-            this.setAttribute('aria-expanded', expanded);
-        });
+    if (!mobileMenu || !navMenu) {
+        console.error('Navigation elements not found!');
+        return;
+    }
+    
+    console.log('Found navigation elements:', { mobileMenu, navMenu });
+    
+    // Toggle mobile menu
+    function toggleMenu() {
+        console.log('Toggling menu...');
+        mobileMenu.classList.toggle('active');
+        navMenu.classList.toggle('active');
         
-        // Close menu when clicking a link
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
+        // Prevent body scrolling when menu is open
+        if (navMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+            console.log('Menu opened - body scroll locked');
+        } else {
+            document.body.style.overflow = '';
+            console.log('Menu closed - body scroll restored');
+        }
+    }
+    
+    // Add click event to hamburger button
+    mobileMenu.addEventListener('click', function(event) {
+        event.stopPropagation();
+        console.log('Hamburger button clicked');
+        toggleMenu();
+    });
+    
+    // Close menu when clicking on a link
+    const navLinks = document.querySelectorAll('.nav-link, .nav-cta');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            console.log('Navigation link clicked:', this.textContent);
+            if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
+                console.log('Closing menu on mobile');
                 mobileMenu.classList.remove('active');
                 navMenu.classList.remove('active');
-                mobileMenu.setAttribute('aria-expanded', 'false');
-            });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.nav-container') && 
-                navMenu.classList.contains('active')) {
-                mobileMenu.classList.remove('active');
-                navMenu.classList.remove('active');
-                mobileMenu.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
             }
         });
-        
-        // Close menu on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-                mobileMenu.classList.remove('active');
-                navMenu.classList.remove('active');
-                mobileMenu.setAttribute('aria-expanded', 'false');
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.nav-container') && 
+            navMenu.classList.contains('active')) {
+            console.log('Clicked outside menu - closing');
+            mobileMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && navMenu.classList.contains('active')) {
+            console.log('Escape key pressed - closing menu');
+            mobileMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Close menu on window resize (if switching to desktop)
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+            console.log('Window resized to desktop - closing menu');
+            mobileMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    console.log('Navigation initialized successfully');
+}
+
+// ===== CONTACT FORM =====
+function initContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    if (!contactForm) {
+        console.log('Contact form not found');
+        return;
+    }
+    
+    console.log('Initializing contact form...');
+    
+    // Initialize form field interactions
+    function initFormFields() {
+        const formGroups = document.querySelectorAll('.form-group');
+        formGroups.forEach(group => {
+            const input = group.querySelector('input, textarea, select');
+            const label = group.querySelector('label');
+            
+            if (input && label) {
+                // Update label position based on input value
+                function updateLabel() {
+                    if (input.value || (input.tagName === 'SELECT' && input.value !== '')) {
+                        label.style.top = '-0.5rem';
+                        label.style.fontSize = '0.85rem';
+                        label.style.color = '#222222';
+                    } else {
+                        label.style.top = '1rem';
+                        label.style.fontSize = '0.95rem';
+                        label.style.color = '#888888';
+                    }
+                }
+                
+                // Initial update
+                updateLabel();
+                
+                // Update on input/change
+                input.addEventListener('input', updateLabel);
+                input.addEventListener('change', updateLabel);
+                input.addEventListener('focus', function() {
+                    label.style.color = '#222222';
+                });
+                input.addEventListener('blur', updateLabel);
             }
         });
     }
-}
-
-// Contact Form
-function initContactForm() {
-    const contactForm = document.getElementById('contactForm');
-    
-    if (!contactForm) return;
     
     // Dynamic fields based on interest
     const interestSelect = document.getElementById('interest');
     const dynamicFields = document.getElementById('dynamicFields');
     
-    interestSelect.addEventListener('change', function() {
-        dynamicFields.innerHTML = '';
-        
-        if (this.value === 'investment') {
-            dynamicFields.innerHTML = `
-                <div class="form-group">
-                    <input type="text" id="businessStage" placeholder=" ">
-                    <label for="businessStage">Business Stage *</label>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="fundingAmount" placeholder=" ">
-                    <label for="fundingAmount">Funding Amount Needed *</label>
-                </div>
-            `;
-        }
-        
-        // Reinitialize form field interactions for new fields
-        initFormFieldInteractions();
-    });
+    if (interestSelect && dynamicFields) {
+        interestSelect.addEventListener('change', function() {
+            console.log('Interest changed to:', this.value);
+            dynamicFields.innerHTML = '';
+            
+            if (this.value === 'investment') {
+                dynamicFields.innerHTML = `
+                    <div class="form-group">
+                        <input type="text" id="businessStage" placeholder=" ">
+                        <label for="businessStage">Business Stage *</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="fundingAmount" placeholder=" ">
+                        <label for="fundingAmount">Funding Amount Needed *</label>
+                    </div>
+                `;
+                
+                // Reinitialize form fields for new inputs
+                setTimeout(initFormFields, 100);
+            }
+        });
+    }
     
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+    // Form submission
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        console.log('Contact form submitted');
         
         // Get form data
         const formData = {
@@ -123,79 +205,42 @@ function initContactForm() {
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         submitBtn.disabled = true;
         
-        // Simulate API call (replace with actual API call)
+        // Simulate API call
         setTimeout(() => {
+            console.log('Form submitted successfully:', formData);
+            
             // Show success message
             showNotification('Thank you! Your message has been sent successfully.', 'success');
             
             // Reset form
             contactForm.reset();
-            
-            // Reset dynamic fields
             dynamicFields.innerHTML = '';
             
             // Reset button
             submitBtn.innerHTML = originalBtnText;
             submitBtn.disabled = false;
             
-            // Reset form field states
-            initFormFieldInteractions();
-            
-            // Log form data
-            console.log('Form submitted:', formData);
+            // Reinitialize form fields
+            initFormFields();
         }, 1500);
     });
     
-    // Initialize form field interactions
-    initFormFieldInteractions();
+    // Initialize form fields
+    initFormFields();
+    console.log('Contact form initialized successfully');
 }
 
-// Initialize form field interactions
-function initFormFieldInteractions() {
-    const formGroups = document.querySelectorAll('.form-group');
-    formGroups.forEach(group => {
-        const input = group.querySelector('input, textarea, select');
-        const label = group.querySelector('label');
-        
-        if (input && label) {
-            // Check initial state
-            if (input.value || input.tagName === 'SELECT' && input.value !== '') {
-                label.style.color = '#222222';
-                label.style.fontSize = '0.85rem';
-                label.style.top = '-0.5rem';
-            }
-            
-            input.addEventListener('focus', () => {
-                label.style.color = '#222222';
-                label.style.fontSize = '0.85rem';
-                label.style.top = '-0.5rem';
-            });
-            
-            input.addEventListener('blur', () => {
-                if (!input.value || (input.tagName === 'SELECT' && input.value === '')) {
-                    label.style.color = '#888888';
-                    label.style.fontSize = '0.95rem';
-                    label.style.top = '1rem';
-                }
-            });
-        }
-    });
-}
-
-// Validate form
+// Form validation
 function validateForm(formData) {
-    // Check required fields
     if (!formData.name || !formData.email || !formData.message || !formData.interest) {
         return false;
     }
     
-    // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
         return false;
     }
     
-    // Check investment-specific fields
     if (formData.interest === 'investment') {
         if (!formData.businessStage || !formData.fundingAmount) {
             return false;
@@ -205,8 +250,153 @@ function validateForm(formData) {
     return true;
 }
 
-// Show notification
+// ===== SCROLL SPY =====
+function initScrollSpy() {
+    console.log('Initializing scroll spy...');
+    
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    if (sections.length === 0 || navLinks.length === 0) {
+        console.log('No sections or nav links found for scroll spy');
+        return;
+    }
+    
+    function updateActiveLink() {
+        let current = '';
+        const scrollPosition = window.scrollY + 100;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+    
+    window.addEventListener('scroll', updateActiveLink);
+    updateActiveLink(); // Initial call
+    
+    console.log('Scroll spy initialized successfully');
+}
+
+// ===== COOKIES POPUP =====
+function initCookiesPopup() {
+    console.log('Initializing cookies popup...');
+    
+    const cookiesPopup = document.getElementById('cookiesPopup');
+    const acceptCookiesBtn = document.getElementById('acceptCookies');
+    const rejectCookiesBtn = document.getElementById('rejectCookies');
+    
+    if (!cookiesPopup) {
+        console.log('Cookies popup not found');
+        return;
+    }
+    
+    // Check if user already made a choice
+    const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+    
+    if (!cookiesAccepted) {
+        // Show popup after 1 second
+        setTimeout(() => {
+            cookiesPopup.classList.add('show');
+            console.log('Cookies popup shown');
+        }, 1000);
+    } else {
+        console.log('Cookies already accepted/rejected:', cookiesAccepted);
+    }
+    
+    // Accept cookies
+    if (acceptCookiesBtn) {
+        acceptCookiesBtn.addEventListener('click', function() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookiesPopup.classList.remove('show');
+            showNotification('Cookie preferences saved. Thank you!', 'success');
+            console.log('Cookies accepted');
+        });
+    }
+    
+    // Reject non-essential cookies
+    if (rejectCookiesBtn) {
+        rejectCookiesBtn.addEventListener('click', function() {
+            localStorage.setItem('cookiesAccepted', 'false');
+            cookiesPopup.classList.remove('show');
+            showNotification('Only essential cookies enabled.', 'info');
+            console.log('Non-essential cookies rejected');
+        });
+    }
+    
+    // Privacy policy link
+    const privacyPolicyLink = document.getElementById('privacyPolicy');
+    if (privacyPolicyLink) {
+        privacyPolicyLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            showNotification('Privacy policy page would open here.', 'info');
+            console.log('Privacy policy link clicked');
+        });
+    }
+    
+    // Cookie policy link
+    const cookiePolicyLink = document.getElementById('cookiePolicy');
+    if (cookiePolicyLink) {
+        cookiePolicyLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            showNotification('Cookie policy page would open here.', 'info');
+            console.log('Cookie policy link clicked');
+        });
+    }
+    
+    console.log('Cookies popup initialized successfully');
+}
+
+// ===== RETURN TO TOP BUTTON =====
+function initReturnToTop() {
+    console.log('Initializing return to top button...');
+    
+    const returnToTopBtn = document.getElementById('returnToTop');
+    
+    if (!returnToTopBtn) {
+        console.log('Return to top button not found');
+        return;
+    }
+    
+    // Show/hide button based on scroll position
+    function toggleReturnButton() {
+        if (window.scrollY > 300) {
+            returnToTopBtn.classList.add('show');
+        } else {
+            returnToTopBtn.classList.remove('show');
+        }
+    }
+    
+    window.addEventListener('scroll', toggleReturnButton);
+    toggleReturnButton(); // Initial check
+    
+    // Scroll to top when clicked
+    returnToTopBtn.addEventListener('click', function() {
+        console.log('Return to top button clicked');
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    console.log('Return to top button initialized successfully');
+}
+
+// ===== NOTIFICATION SYSTEM =====
 function showNotification(message, type = 'info') {
+    console.log('Showing notification:', { message, type });
+    
     // Remove existing notification
     const existingNotification = document.querySelector('.notification');
     if (existingNotification) {
@@ -218,9 +408,11 @@ function showNotification(message, type = 'info') {
     notification.className = `notification notification-${type}`;
     notification.setAttribute('role', 'alert');
     notification.setAttribute('aria-live', 'polite');
+    
+    const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
     notification.innerHTML = `
         <div class="notification-content">
-            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+            <i class="fas ${icon}"></i>
             <span>${message}</span>
         </div>
     `;
@@ -245,217 +437,120 @@ function showNotification(message, type = 'info') {
         font-size: 0.95rem;
     `;
     
-    // Add animation styles
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
+    // Add animation keyframes
+    if (!document.querySelector('#notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'notification-styles';
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
             }
-            to {
-                transform: translateX(0);
-                opacity: 1;
+            
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
             }
-        }
-        
-        @keyframes slideOut {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(style);
+        `;
+        document.head.appendChild(style);
+    }
     
     // Add to document
     document.body.appendChild(notification);
     
     // Auto-remove after 5 seconds
-    setTimeout(() => {
+    const removeTimeout = setTimeout(() => {
         notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 300);
     }, 5000);
     
     // Remove on click
     notification.addEventListener('click', () => {
+        clearTimeout(removeTimeout);
         notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
-    });
-}
-
-// Scroll spy for active navigation
-function initScrollSpy() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    if (sections.length === 0 || navLinks.length === 0) return;
-    
-    window.addEventListener('scroll', () => {
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100;
-            const sectionHeight = section.clientHeight;
-            
-            if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-                current = section.getAttribute('id');
-            }
-        });
-        
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    });
-}
-
-// Cookies Popup
-function initCookiesPopup() {
-    const cookiesPopup = document.getElementById('cookiesPopup');
-    const acceptCookiesBtn = document.getElementById('acceptCookies');
-    const rejectCookiesBtn = document.getElementById('rejectCookies');
-    const privacyPolicyLink = document.getElementById('privacyPolicy');
-    const cookiePolicyLink = document.getElementById('cookiePolicy');
-    
-    // Check if user already made a choice
-    const cookiesAccepted = localStorage.getItem('cookiesAccepted');
-    
-    if (!cookiesAccepted) {
-        // Show popup after 1 second
         setTimeout(() => {
-            cookiesPopup.classList.add('show');
-        }, 1000);
-    }
-    
-    // Accept cookies
-    acceptCookiesBtn.addEventListener('click', () => {
-        localStorage.setItem('cookiesAccepted', 'true');
-        cookiesPopup.classList.remove('show');
-        showNotification('Cookie preferences saved.', 'success');
-        
-        // Here you would initialize analytics cookies
-        console.log('Analytics cookies enabled');
-    });
-    
-    // Reject non-essential cookies
-    rejectCookiesBtn.addEventListener('click', () => {
-        localStorage.setItem('cookiesAccepted', 'false');
-        cookiesPopup.classList.remove('show');
-        showNotification('Only essential cookies enabled.', 'info');
-        
-        // Here you would only set essential cookies
-        console.log('Only essential cookies enabled');
-    });
-    
-    // Privacy policy link
-    privacyPolicyLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showNotification('Privacy policy page would open here.', 'info');
-        // window.open('privacy-policy.html', '_blank');
-    });
-    
-    // Cookie policy link
-    cookiePolicyLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showNotification('Cookie policy page would open here.', 'info');
-        // window.open('cookie-policy.html', '_blank');
-    });
-    
-    // Close popup on escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && cookiesPopup.classList.contains('show')) {
-            cookiesPopup.classList.remove('show');
-        }
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 300);
     });
 }
 
-// Return to Top Button
-function initReturnToTop() {
-    const returnToTopBtn = document.getElementById('returnToTop');
-    
-    if (!returnToTopBtn) return;
-    
-    // Show/hide button based on scroll position
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            returnToTopBtn.classList.add('show');
-        } else {
-            returnToTopBtn.classList.remove('show');
-        }
-    });
-    
-    // Scroll to top when clicked
-    returnToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-        
-        // Focus on navigation for accessibility
-        document.querySelector('.navbar').focus();
-    });
-}
-
-// Update copyright year
+// ===== UPDATE COPYRIGHT YEAR =====
 function updateCopyrightYear() {
+    console.log('Updating copyright year...');
+    
     const yearElement = document.getElementById('currentYear');
     if (yearElement) {
         yearElement.textContent = new Date().getFullYear();
+        console.log('Copyright year updated to:', yearElement.textContent);
     }
 }
 
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            e.preventDefault();
-            const offsetTop = targetElement.offsetTop - 80;
+// ===== SMOOTH SCROLLING =====
+function initSmoothScrolling() {
+    console.log('Initializing smooth scrolling...');
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(event) {
+            const targetId = this.getAttribute('href');
             
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
+            if (targetId === '#') return;
             
-            // Update URL hash
-            history.pushState(null, null, targetId);
-        }
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                event.preventDefault();
+                
+                // Calculate position (accounting for fixed header)
+                const headerHeight = 80;
+                const targetPosition = targetElement.offsetTop - headerHeight;
+                
+                // Smooth scroll
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+                
+                console.log('Smooth scrolling to:', targetId);
+            }
+        });
     });
-});
+    
+    console.log('Smooth scrolling initialized successfully');
+}
 
-// Initialize on load
+// Initialize smooth scrolling
+initSmoothScrolling();
+
+// ===== WINDOW LOAD EVENT =====
 window.addEventListener('load', function() {
-    // Add any on-load animations here
+    console.log('Page fully loaded');
     document.body.classList.add('loaded');
 });
 
-// Handle window resize
-let resizeTimer;
+// ===== WINDOW RESIZE HANDLER =====
+let resizeTimeout;
 window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-        // Recalculate anything if needed
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function() {
+        console.log('Window resized to:', window.innerWidth, 'x', window.innerHeight);
     }, 250);
 });
 
-// Accessibility improvements
-document.addEventListener('keydown', function(e) {
-    // Tab key navigation
-    if (e.key === 'Tab') {
-        document.body.classList.add('keyboard-navigation');
-    }
-});
-
-document.addEventListener('mousedown', function() {
-    document.body.classList.remove('keyboard-navigation');
-});
+console.log('All JavaScript functions defined');
