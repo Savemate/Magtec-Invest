@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Professional Resume | MagTec Invest</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body class="resume-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-icon">M</span>
+                    <div class="logo-text">
+                        <span class="logo-main">MagTec</span>
+                        <span class="logo-sub">Invest</span>
+                    </div>
+                </a>
+            </div>
+            
+            <button class="nav-toggle" id="mobileMenu" aria-label="Toggle menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#services" class="nav-link">Services</a></li>
+                <li><a href="index.html#savemate" class="nav-link">Savemate</a></li>
+                <li><a href="resume-builder.html" class="nav-link active">Create Resume</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                <li><a href="index.html#contact" class="nav-cta">Start Project</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Resume Builder Section -->
+    <section class="section resume-builder-section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">
+                    <span class="title-label">Free Resume Builder</span>
+                    Create Your Professional Resume
+                </h1>
+                <p class="section-subtitle">
+                    Fill in your details and download a professionally designed resume in PDF format
+                </p>
+            </div>
+            
+            <div class="resume-container">
+                <!-- Form Section -->
+                <div class="resume-form-container">
+                    <div class="progress-indicator">
+                        <div class="progress-step active" data-step="personal-info">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="progress-step" data-step="work-history">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="progress-step" data-step="education">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="progress-step" data-step="skills">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    
+                    <form id="resumeForm" class="resume-form">
+                        <div class="form-section active" id="personal-info-section">
+                            <h3><i class="fas fa-user"></i> Personal Information</h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" id="fullName" required placeholder=" ">
+                                    <label for="fullName">Full Name *</label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="text" id="jobTitle" required placeholder=" ">
+                                    <label for="jobTitle">Professional Title *</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="email" id="email" required placeholder=" ">
+                                    <label for="email">Email Address *</label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="tel" id="phone" placeholder=" ">
+                                    <label for="phone">Phone Number</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" id="location" placeholder=" ">
+                                    <label for="location">Location (City, Country)</label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="url" id="linkedin" placeholder=" ">
+                                    <label for="linkedin">LinkedIn Profile URL</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <textarea id="summary" rows="3" placeholder=" "></textarea>
+                                <label for="summary">Professional Summary</label>
+                                <small>Briefly describe your professional background and career goals</small>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline next-section" data-next="work-history">
+                                    Next: Work History <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section" id="work-history-section">
+                            <h3><i class="fas fa-briefcase"></i> Work History</h3>
+                            <div id="workHistoryEntries">
+                                <!-- Dynamic entries will be added here -->
+                            </div>
+                            
+                            <button type="button" id="addWorkExperience" class="btn btn-outline">
+                                <i class="fas fa-plus"></i> Add Another Position
+                            </button>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline prev-section" data-prev="personal-info">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                                <button type="button" class="btn btn-outline next-section" data-next="education">
+                                    Next: Education <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section" id="education-section">
+                            <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                            <div id="educationEntries">
+                                <!-- Dynamic entries will be added here -->
+                            </div>
+                            
+                            <button type="button" id="addEducation" class="btn btn-outline">
+                                <i class="fas fa-plus"></i> Add Another Education
+                            </button>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline prev-section" data-prev="work-history">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                                <button type="button" class="btn btn-outline next-section" data-next="skills">
+                                    Next: Skills <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section" id="skills-section">
+                            <h3><i class="fas fa-star"></i> Skills & Expertise</h3>
+                            
+                            <div class="form-group">
+                                <label for="skills">Skills (comma separated)</label>
+                                <input type="text" id="skills" placeholder="e.g., HTML, CSS, JavaScript, Project Management">
+                                <small>Separate each skill with a comma</small>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline prev-section" data-prev="education">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                                <button type="button" class="btn btn-dark" id="previewResume">
+                                    <i class="fas fa-eye"></i> Preview & Generate
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Live Preview Section -->
+                <div class="resume-preview-container">
+                    <div class="preview-header">
+                        <h3><i class="fas fa-file-alt"></i> Resume Preview</h3>
+                        <div class="preview-actions">
+                            <button id="downloadResume" class="btn btn-dark" disabled>
+                                <i class="fas fa-download"></i> Download PDF
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="resume-preview" id="resumePreview">
+                        <!-- Resume preview will be generated here -->
+                        <div class="preview-placeholder">
+                            <i class="fas fa-file-pdf"></i>
+                            <p>Fill out the form to see your resume preview</p>
+                            <p class="placeholder-sub">Your professional resume will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resume-tips">
+                <h3><i class="fas fa-lightbulb"></i> Tips for a Great Resume</h3>
+                <div class="tips-grid">
+                    <div class="tip">
+                        <h4>Be Specific</h4>
+                        <p>Use numbers and metrics to quantify your achievements</p>
+                    </div>
+                    <div class="tip">
+                        <h4>Keep it Concise</h4>
+                        <p>Limit your resume to 1-2 pages for maximum impact</p>
+                    </div>
+                    <div class="tip">
+                        <h4>Tailor to the Job</h4>
+                        <p>Customize your resume for each position you apply for</p>
+                    </div>
+                    <div class="tip">
+                        <h4>Proofread</h4>
+                        <p>Check for spelling and grammar errors before sending</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="nav-logo">
+                        <a href="index.html" class="logo-link">
+                            <span class="logo-icon">M</span>
+                            <div class="logo-text">
+                                <span class="logo-main">MagTec</span>
+                                <span class="logo-sub">Invest</span>
+                            </div>
+                        </a>
+                    </div>
+                    <p class="footer-tagline">
+                        Creative Investment. Exceptional Design.
+                    </p>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> Ekurhuleni, Gauteng</p>
+                        <p><i class="fas fa-envelope"></i> hello@MagTecInvest.site</p>
+                        <p><i class="fas fa-phone"></i> +27 79 487 4559</p>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Quick Links</h4>
+                        <a href="index.html">Home</a>
+                        <a href="index.html#about">About</a>
+                        <a href="index.html#services">Services</a>
+                        <a href="index.html#savemate">Savemate</a>
+                        <a href="resume-builder.html">Create Resume</a>
+                        <a href="index.html#contact">Contact</a>
+                    </div>
+                    
+                    <div class="link-group-spacer"></div>
+                    
+                    <div class="link-group">
+                        <h4>Services</h4>
+                        <a href="index.html#services">Graphic Design</a>
+                        <a href="index.html#services">Web Development</a>
+                        <a href="index.html#services">Media Production</a>
+                        <a href="index.html#services">Marketing</a>
+                        <a href="index.html#services">Investment</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; <span id="currentYear">2024</span> MagTec Invest. All rights reserved.</p>
+                    <p>Based in Ekurhuleni, Gauteng, South Africa</p>
+                </div>
+                
+                <div class="footer-social">
+                    <a href="https://wa.me/27794874559" target="_blank" class="social-link">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="resume-script.js"></script>
+</body>
+</html>
