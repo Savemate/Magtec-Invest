@@ -55,6 +55,7 @@
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
                 <li><a href="#savemate" class="nav-link">Savemate</a></li>
+                <li><a href="#resume-builder" class="nav-link">Create Resume</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
                 <li><a href="#contact" class="nav-cta">Start Project</a></li>
             </ul>
@@ -361,6 +362,175 @@
         </div>
     </section>
 
+    <!-- Resume Builder Section -->
+    <section id="resume-builder" class="section resume-builder">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-label">Create Your</span>
+                    Professional Resume
+                </h2>
+                <p class="section-subtitle">
+                    Fill in your details and download a professionally designed resume in PDF format
+                </p>
+            </div>
+            
+            <div class="resume-container">
+                <!-- Form Section -->
+                <div class="resume-form-container">
+                    <div class="progress-indicator">
+                        <div class="progress-step active" data-step="personal-info">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="progress-step" data-step="work-history">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="progress-step" data-step="education">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="progress-step" data-step="skills">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    
+                    <form id="resumeForm" class="resume-form">
+                        <div class="form-section active" id="personal-info-section">
+                            <h3><i class="fas fa-user"></i> Personal Information</h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" id="fullName" required placeholder=" ">
+                                    <label for="fullName">Full Name *</label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="text" id="jobTitle" required placeholder=" ">
+                                    <label for="jobTitle">Professional Title *</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="email" id="email" required placeholder=" ">
+                                    <label for="email">Email Address *</label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="tel" id="phone" placeholder=" ">
+                                    <label for="phone">Phone Number</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" id="location" placeholder=" ">
+                                    <label for="location">Location (City, Country)</label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="url" id="linkedin" placeholder=" ">
+                                    <label for="linkedin">LinkedIn Profile URL</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <textarea id="summary" rows="3" placeholder=" "></textarea>
+                                <label for="summary">Professional Summary</label>
+                                <small>Briefly describe your professional background and career goals</small>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline next-section" data-next="work-history">
+                                    Next: Work History <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section" id="work-history-section">
+                            <h3><i class="fas fa-briefcase"></i> Work History</h3>
+                            <div id="workHistoryEntries">
+                                <!-- Dynamic entries will be added here -->
+                            </div>
+                            
+                            <button type="button" id="addWorkExperience" class="btn btn-outline">
+                                <i class="fas fa-plus"></i> Add Another Position
+                            </button>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline prev-section" data-prev="personal-info">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                                <button type="button" class="btn btn-outline next-section" data-next="education">
+                                    Next: Education <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section" id="education-section">
+                            <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                            <div id="educationEntries">
+                                <!-- Dynamic entries will be added here -->
+                            </div>
+                            
+                            <button type="button" id="addEducation" class="btn btn-outline">
+                                <i class="fas fa-plus"></i> Add Another Education
+                            </button>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline prev-section" data-prev="work-history">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                                <button type="button" class="btn btn-outline next-section" data-next="skills">
+                                    Next: Skills <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section" id="skills-section">
+                            <h3><i class="fas fa-star"></i> Skills & Expertise</h3>
+                            
+                            <div class="form-group">
+                                <label for="skills">Skills (comma separated)</label>
+                                <input type="text" id="skills" placeholder="e.g., HTML, CSS, JavaScript, Project Management">
+                                <small>Separate each skill with a comma</small>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline prev-section" data-prev="education">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                                <button type="button" class="btn btn-dark" id="previewResume">
+                                    <i class="fas fa-eye"></i> Preview & Download
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Live Preview Section -->
+                <div class="resume-preview-container">
+                    <div class="preview-header">
+                        <h3><i class="fas fa-file-alt"></i> Live Preview</h3>
+                        <div class="preview-actions">
+                            <button id="downloadResume" class="btn btn-dark" disabled>
+                                <i class="fas fa-download"></i> Download PDF
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="resume-preview" id="resumePreview">
+                        <!-- Resume preview will be generated here -->
+                        <div class="preview-placeholder">
+                            <i class="fas fa-file-pdf"></i>
+                            <p>Fill out the form to see your resume preview</p>
+                            <p class="placeholder-sub">Your professional resume will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="section contact">
         <div class="container">
@@ -500,6 +670,7 @@
                         <a href="#about">About</a>
                         <a href="#services">Services</a>
                         <a href="#savemate">Savemate</a>
+                        <a href="#resume-builder">Create Resume</a>
                         <a href="#contact">Contact</a>
                     </div>
                     
