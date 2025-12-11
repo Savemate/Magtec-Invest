@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initCookiesPopup();
     initReturnToTop();
     updateCopyrightYear();
+    initResumeBuilder();
+    initSmoothScrolling();
     
     console.log('All components initialized successfully!');
 });
@@ -248,6 +250,556 @@ function validateForm(formData) {
     }
     
     return true;
+}
+
+// ===== RESUME BUILDER =====
+function initResumeBuilder() {
+    console.log('Initializing resume builder...');
+    
+    const resumeForm = document.getElementById('resumeForm');
+    const previewContainer = document.getElementById('resumePreview');
+    const downloadBtn = document.getElementById('downloadResume');
+    const previewBtn = document.getElementById('previewResume');
+    
+    if (!resumeForm || !previewContainer) {
+        console.log('Resume builder elements not found');
+        return;
+    }
+    
+    // Initialize work history and education entries
+    let workHistoryCount = 0;
+    let educationCount = 0;
+    
+    // Add first work experience entry
+    addWorkExperienceEntry();
+    
+    // Add first education entry
+    addEducationEntry();
+    
+    // Form navigation
+    const sections = document.querySelectorAll('.form-section');
+    const progressSteps = document.querySelectorAll('.progress-step');
+    let currentSection = 0;
+    
+    // Next section buttons
+    document.querySelectorAll('.next-section').forEach(button => {
+        button.addEventListener('click', function() {
+            const nextSection = this.dataset.next;
+            navigateToSection(nextSection, 'next');
+        });
+    });
+    
+    // Previous section buttons
+    document.querySelectorAll('.prev-section').forEach(button => {
+        button.addEventListener('click', function() {
+            const prevSection = this.dataset.prev;
+            navigateToSection(prevSection, 'prev');
+        });
+    });
+    
+    // Add work experience
+    document.getElementById('addWorkExperience').addEventListener('click', addWorkExperienceEntry);
+    
+    // Add education
+    document.getElementById('addEducation').addEventListener('click', addEducationEntry);
+    
+    // Preview resume
+    if (previewBtn) {
+        previewBtn.addEventListener('click', generateResumePreview);
+    }
+    
+    // Download PDF (using html2pdf library)
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', downloadResumePDF);
+    }
+    
+    // Auto-update preview on form changes
+    resumeForm.addEventListener('input', debounce(generateResumePreview, 500));
+    
+    // Initialize form fields in resume builder
+    initializeResumeFormFields();
+    
+    console.log('Resume builder initialized successfully');
+}
+
+// Navigate between sections
+function navigateToSection(sectionId, direction) {
+    const currentActive = document.querySelector('.form-section.active');
+    const nextSection = document.getElementById(`${sectionId}-section`);
+    const progressSteps = document.querySelectorAll('.progress-step');
+    
+    if (currentActive && nextSection) {
+        // Update active class
+        currentActive.classList.remove('active');
+        nextSection.classList.add('active');
+        
+        // Update progress indicator
+        progressSteps.forEach(step => {
+            step.classList.remove('active');
+            if (step.dataset.step === sectionId) {
+                step.classList.add('active');
+            }
+            
+            // Mark previous steps as completed
+            const stepOrder = ['personal-info', 'work-history', 'education', 'skills'];
+            const currentIndex = stepOrder.indexOf(sectionId);
+            const stepIndex = stepOrder.indexOf(step.dataset.step);
+            
+            if (stepIndex < currentIndex) {
+                step.classList.add('completed');
+            } else if (stepIndex > currentIndex) {
+                step.classList.remove('completed');
+            }
+        });
+        
+        // Scroll to top of form
+        const formContainer = document.querySelector('.resume-form-container');
+        formContainer.scrollTop = 0;
+    }
+}
+
+// Add work experience entry
+function addWorkExperienceEntry() {
+    const container = document.getElementById('workHistoryEntries');
+    const count = document.querySelectorAll('.work-entry').length + 1;
+    
+    const entryHTML = `
+        <div class="entry-item work-entry" data-id="${count}">
+            <div class="entry-header">
+                <div class="entry-title">Work Experience #${count}</div>
+                <button type="button" class="remove-entry" onclick="removeEntry(this)">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="form-group">
+                <input type="text" id="jobTitle${count}" placeholder=" " required>
+                <label for="jobTitle${count}">Job Title *</label>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="text" id="company${count}" placeholder=" " required>
+                    <label for="company${count}">Company Name *</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" id="location${count}" placeholder=" ">
+                    <label for="location${count}">Location</label>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="month" id="startDate${count}" placeholder=" " required>
+                    <label for="startDate${count}">Start Date *</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="month" id="endDate${count}" placeholder=" ">
+                    <label for="endDate${count}">End Date (leave blank if current)</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <textarea id="description${count}" rows="3" placeholder=" "></textarea>
+                <label for="description${count}">Job Description</label>
+                <small>Describe your responsibilities and achievements</small>
+            </div>
+        </div>
+    `;
+    
+    container.insertAdjacentHTML('beforeend', entryHTML);
+    initializeResumeFormFields();
+}
+
+// Add education entry
+function addEducationEntry() {
+    const container = document.getElementById('educationEntries');
+    const count = document.querySelectorAll('.education-entry').length + 1;
+    
+    const entryHTML = `
+        <div class="entry-item education-entry" data-id="${count}">
+            <div class="entry-header">
+                <div class="entry-title">Education #${count}</div>
+                <button type="button" class="remove-entry" onclick="removeEntry(this)">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="form-group">
+                <input type="text" id="degree${count}" placeholder=" " required>
+                <label for="degree${count}">Degree/Diploma *</label>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="text" id="school${count}" placeholder=" " required>
+                    <label for="school${count}">School/University *</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" id="field${count}" placeholder=" ">
+                    <label for="field${count}">Field of Study</label>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="month" id="eduStartDate${count}" placeholder=" ">
+                    <label for="eduStartDate${count}">Start Date</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="month" id="eduEndDate${count}" placeholder=" ">
+                    <label for="eduEndDate${count}">End Date</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <textarea id="eduDetails${count}" rows="2" placeholder=" "></textarea>
+                <label for="eduDetails${count}">Additional Details</label>
+            </div>
+        </div>
+    `;
+    
+    container.insertAdjacentHTML('beforeend', entryHTML);
+    initializeResumeFormFields();
+}
+
+// Remove entry
+function removeEntry(button) {
+    const entry = button.closest('.entry-item');
+    if (entry && document.querySelectorAll('.entry-item').length > 1) {
+        entry.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => {
+            entry.remove();
+            // Renumber remaining entries
+            updateEntryNumbers();
+        }, 300);
+    }
+}
+
+// Update entry numbers
+function updateEntryNumbers() {
+    // Update work experience entries
+    document.querySelectorAll('.work-entry').forEach((entry, index) => {
+        const title = entry.querySelector('.entry-title');
+        if (title) {
+            title.textContent = `Work Experience #${index + 1}`;
+        }
+    });
+    
+    // Update education entries
+    document.querySelectorAll('.education-entry').forEach((entry, index) => {
+        const title = entry.querySelector('.entry-title');
+        if (title) {
+            title.textContent = `Education #${index + 1}`;
+        }
+    });
+}
+
+// Initialize resume form fields
+function initializeResumeFormFields() {
+    const formGroups = document.querySelectorAll('.resume-form .form-group');
+    formGroups.forEach(group => {
+        const input = group.querySelector('input, textarea, select');
+        const label = group.querySelector('label');
+        
+        if (input && label) {
+            function updateLabel() {
+                if (input.value || (input.tagName === 'SELECT' && input.value !== '')) {
+                    label.style.top = '-0.5rem';
+                    label.style.fontSize = '0.85rem';
+                    label.style.color = '#222222';
+                } else {
+                    label.style.top = '1rem';
+                    label.style.fontSize = '0.95rem';
+                    label.style.color = '#888888';
+                }
+            }
+            
+            updateLabel();
+            
+            input.addEventListener('input', updateLabel);
+            input.addEventListener('change', updateLabel);
+            input.addEventListener('focus', function() {
+                label.style.color = '#222222';
+            });
+            input.addEventListener('blur', updateLabel);
+        }
+    });
+}
+
+// Generate resume preview
+function generateResumePreview() {
+    console.log('Generating resume preview...');
+    
+    const previewContainer = document.getElementById('resumePreview');
+    const downloadBtn = document.getElementById('downloadResume');
+    
+    // Get form data
+    const formData = {
+        personal: {
+            name: document.getElementById('fullName').value.trim(),
+            title: document.getElementById('jobTitle').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            phone: document.getElementById('phone').value.trim(),
+            location: document.getElementById('location').value.trim(),
+            linkedin: document.getElementById('linkedin').value.trim(),
+            summary: document.getElementById('summary').value.trim()
+        },
+        work: [],
+        education: [],
+        skills: document.getElementById('skills').value.trim()
+    };
+    
+    // Get work experience
+    document.querySelectorAll('.work-entry').forEach(entry => {
+        const id = entry.dataset.id;
+        formData.work.push({
+            title: document.getElementById(`jobTitle${id}`).value.trim(),
+            company: document.getElementById(`company${id}`).value.trim(),
+            location: document.getElementById(`location${id}`).value.trim(),
+            startDate: document.getElementById(`startDate${id}`).value,
+            endDate: document.getElementById(`endDate${id}`).value,
+            description: document.getElementById(`description${id}`).value.trim()
+        });
+    });
+    
+    // Get education
+    document.querySelectorAll('.education-entry').forEach(entry => {
+        const id = entry.dataset.id;
+        formData.education.push({
+            degree: document.getElementById(`degree${id}`).value.trim(),
+            school: document.getElementById(`school${id}`).value.trim(),
+            field: document.getElementById(`field${id}`).value.trim(),
+            startDate: document.getElementById(`eduStartDate${id}`).value,
+            endDate: document.getElementById(`eduEndDate${id}`).value,
+            details: document.getElementById(`eduDetails${id}`).value.trim()
+        });
+    });
+    
+    // Generate HTML for preview
+    const resumeHTML = generateResumeHTML(formData);
+    previewContainer.innerHTML = resumeHTML;
+    
+    // Enable download button if basic info is filled
+    if (formData.personal.name && formData.personal.title && formData.personal.email) {
+        downloadBtn.disabled = false;
+    } else {
+        downloadBtn.disabled = true;
+    }
+    
+    // Store form data for PDF generation
+    window.resumeData = formData;
+}
+
+// Generate resume HTML
+function generateResumeHTML(data) {
+    if (!data.personal.name) {
+        return `
+            <div class="preview-placeholder">
+                <i class="fas fa-file-pdf"></i>
+                <p>Fill out the form to see your resume preview</p>
+                <p class="placeholder-sub">Your professional resume will appear here</p>
+            </div>
+        `;
+    }
+    
+    // Format date
+    function formatDate(dateString) {
+        if (!dateString) return 'Present';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    }
+    
+    // Generate skills list
+    function generateSkillsList(skillsText) {
+        if (!skillsText) return '';
+        const skills = skillsText.split(',').map(skill => skill.trim()).filter(skill => skill);
+        return `
+            <div class="skills-list">
+                ${skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+            </div>
+        `;
+    }
+    
+    return `
+        <div class="resume-template" id="resumeContent">
+            <div class="resume-header">
+                <h1 class="resume-name">${data.personal.name || 'Your Name'}</h1>
+                <div class="resume-title">${data.personal.title || 'Professional Title'}</div>
+                
+                <div class="resume-contact">
+                    ${data.personal.email ? `
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>${data.personal.email}</span>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.personal.phone ? `
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>${data.personal.phone}</span>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.personal.location ? `
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${data.personal.location}</span>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.personal.linkedin ? `
+                        <div class="contact-item">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn Profile</span>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+            
+            ${data.personal.summary ? `
+                <div class="resume-section">
+                    <h3 class="section-title"><i class="fas fa-user"></i> Professional Summary</h3>
+                    <p class="job-description">${data.personal.summary}</p>
+                </div>
+            ` : ''}
+            
+            ${data.work.length > 0 ? `
+                <div class="resume-section">
+                    <h3 class="section-title"><i class="fas fa-briefcase"></i> Work Experience</h3>
+                    ${data.work.map(job => `
+                        <div class="work-item">
+                            <div class="item-header">
+                                <div>
+                                    <div class="job-title">${job.title || 'Job Title'}</div>
+                                    <div class="company-name">${job.company || 'Company Name'}</div>
+                                </div>
+                                <div class="dates">
+                                    ${formatDate(job.startDate)} - ${job.endDate ? formatDate(job.endDate) : 'Present'}
+                                </div>
+                            </div>
+                            ${job.location ? `<div class="company-name">${job.location}</div>` : ''}
+                            ${job.description ? `<div class="job-description">${job.description.replace(/\n/g, '<br>')}</div>` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+            ` : ''}
+            
+            ${data.education.length > 0 ? `
+                <div class="resume-section">
+                    <h3 class="section-title"><i class="fas fa-graduation-cap"></i> Education</h3>
+                    ${data.education.map(edu => `
+                        <div class="education-item">
+                            <div class="item-header">
+                                <div>
+                                    <div class="degree-title">${edu.degree || 'Degree'}</div>
+                                    <div class="school-name">${edu.school || 'School/University'}</div>
+                                </div>
+                                ${edu.startDate ? `
+                                    <div class="dates">
+                                        ${formatDate(edu.startDate)} - ${edu.endDate ? formatDate(edu.endDate) : 'Present'}
+                                    </div>
+                                ` : ''}
+                            </div>
+                            ${edu.field ? `<div class="school-name">${edu.field}</div>` : ''}
+                            ${edu.details ? `<div class="education-details">${edu.details.replace(/\n/g, '<br>')}</div>` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+            ` : ''}
+            
+            ${data.skills ? `
+                <div class="resume-section">
+                    <h3 class="section-title"><i class="fas fa-star"></i> Skills</h3>
+                    ${generateSkillsList(data.skills)}
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
+// Download resume as PDF
+async function downloadResumePDF() {
+    console.log('Downloading resume as PDF...');
+    
+    const downloadBtn = document.getElementById('downloadResume');
+    const originalText = downloadBtn.innerHTML;
+    
+    // Show loading state
+    downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating PDF...';
+    downloadBtn.disabled = true;
+    
+    try {
+        // Check if html2pdf is available
+        if (typeof html2pdf === 'undefined') {
+            // Load html2pdf library dynamically
+            await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js');
+        }
+        
+        const element = document.getElementById('resumeContent');
+        
+        if (!element) {
+            throw new Error('Resume content not found');
+        }
+        
+        const options = {
+            margin: [15, 15],
+            filename: `Resume_${window.resumeData?.personal?.name || 'MyResume'}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { 
+                scale: 2,
+                useCORS: true,
+                letterRendering: true
+            },
+            jsPDF: { 
+                unit: 'mm', 
+                format: 'a4', 
+                orientation: 'portrait' 
+            }
+        };
+        
+        await html2pdf().set(options).from(element).save();
+        
+        // Show success message
+        showNotification('Resume downloaded successfully!', 'success');
+        
+    } catch (error) {
+        console.error('PDF generation error:', error);
+        showNotification('Error generating PDF. Please try again.', 'error');
+    } finally {
+        // Restore button
+        downloadBtn.innerHTML = originalText;
+        downloadBtn.disabled = false;
+    }
+}
+
+// Load script dynamically
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+// Debounce function for performance
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
 
 // ===== SCROLL SPY =====
@@ -535,9 +1087,6 @@ function initSmoothScrolling() {
     console.log('Smooth scrolling initialized successfully');
 }
 
-// Initialize smooth scrolling
-initSmoothScrolling();
-
 // ===== WINDOW LOAD EVENT =====
 window.addEventListener('load', function() {
     console.log('Page fully loaded');
@@ -552,5 +1101,3 @@ window.addEventListener('resize', function() {
         console.log('Window resized to:', window.innerWidth, 'x', window.innerHeight);
     }, 250);
 });
-
-console.log('All JavaScript functions defined');
