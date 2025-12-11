@@ -1,4 +1,4 @@
-// Resume Builder JavaScript
+// Resume Builder JavaScript with Multiple Templates
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Resume Builder - Initializing...');
     
@@ -6,9 +6,52 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavigation();
     updateCopyrightYear();
     initReturnToTop();
+    initTemplateSelection();
     
     console.log('Resume Builder initialized successfully!');
 });
+
+// ===== TEMPLATE SELECTION =====
+function initTemplateSelection() {
+    console.log('Initializing template selection...');
+    
+    const templateOptions = document.querySelectorAll('.template-option');
+    const currentTemplateName = document.getElementById('currentTemplateName');
+    
+    // Set initial template
+    window.selectedTemplate = 'modern';
+    
+    templateOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            // Remove active class from all options
+            templateOptions.forEach(opt => opt.classList.remove('active'));
+            
+            // Add active class to clicked option
+            this.classList.add('active');
+            
+            // Update selected template
+            const template = this.dataset.template;
+            window.selectedTemplate = template;
+            
+            // Update template name display
+            if (currentTemplateName) {
+                const templateNames = {
+                    'modern': 'Modern',
+                    'classic': 'Classic',
+                    'executive': 'Executive'
+                };
+                currentTemplateName.textContent = templateNames[template];
+            }
+            
+            console.log('Selected template:', template);
+            
+            // Regenerate preview if there's data
+            if (window.resumeData) {
+                generateResumePreview();
+            }
+        });
+    });
+}
 
 // ===== NAVIGATION =====
 function initNavigation() {
@@ -414,8 +457,8 @@ function generateResumePreview() {
         });
     });
     
-    // Generate HTML for preview
-    const resumeHTML = generateResumeHTML(formData);
+    // Generate HTML for preview based on selected template
+    const resumeHTML = generateResumeHTML(formData, window.selectedTemplate);
     previewContainer.innerHTML = resumeHTML;
     
     // Enable download button if basic info is filled
@@ -429,8 +472,8 @@ function generateResumePreview() {
     window.resumeData = formData;
 }
 
-// Generate resume HTML
-function generateResumeHTML(data) {
+// Generate resume HTML based on template
+function generateResumeHTML(data, template = 'modern') {
     if (!data.personal.name) {
         return `
             <div class="preview-placeholder">
@@ -452,15 +495,26 @@ function generateResumeHTML(data) {
     function generateSkillsList(skillsText) {
         if (!skillsText) return '';
         const skills = skillsText.split(',').map(skill => skill.trim()).filter(skill => skill);
-        return `
-            <div class="skills-list">
-                ${skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
-            </div>
-        `;
+        return skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('');
     }
     
-    const resumeHTML = `
-        <div class="resume-template" id="resumeContent">
+    // Template-specific HTML generators
+    const templateGenerators = {
+        modern: (data) => generateModernTemplate(data),
+        classic: (data) => generateClassicTemplate(data),
+        executive: (data) => generateExecutiveTemplate(data)
+    };
+    
+    // Get the appropriate template generator
+    const generateTemplate = templateGenerators[template] || templateGenerators.modern;
+    
+    return generateTemplate(data);
+}
+
+// Modern Template
+function generateModernTemplate(data) {
+    return `
+        <div class="resume-template modern" id="resumeContent">
             <div class="resume-header">
                 <h1 class="resume-name">${data.personal.name || 'Your Name'}</h1>
                 <div class="resume-title">${data.personal.title || 'Professional Title'}</div>
@@ -549,16 +603,226 @@ function generateResumeHTML(data) {
             ${data.skills ? `
                 <div class="resume-section">
                     <h3 class="section-title"><i class="fas fa-star"></i> Skills</h3>
-                    ${generateSkillsList(data.skills)}
+                    <div class="skills-list">
+                        ${generateSkillsList(data.skills)}
+                    </div>
                 </div>
             ` : ''}
         </div>
     `;
-    
-    return resumeHTML;
 }
 
-// Download resume as PDF - FIXED VERSION
+// Classic Template
+function generateClassicTemplate(data) {
+    return `
+        <div class="resume-template classic" id="resumeContent">
+            <div class="resume-header">
+                <div>
+                    <h1 class="resume-name">${data.personal.name || 'Your Name'}</h1>
+                    <div class="resume-title">${data.personal.title || 'Professional Title'}</div>
+                </div>
+                
+                <div class="resume-contact">
+                    ${data.personal.email ? `
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>${data.personal.email}</span>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.personal.phone ? `
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>${data.personal.phone}</span>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.personal.location ? `
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${data.personal.location}</span>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.personal.linkedin ? `
+                        <div class="contact-item">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn Profile</span>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+            
+            ${data.personal.summary ? `
+                <div class="resume-section">
+                    <h3 class="section-title">PROFESSIONAL SUMMARY</h3>
+                    <p class="job-description">${data.personal.summary}</p>
+                </div>
+            ` : ''}
+            
+            ${data.work.length > 0 ? `
+                <div class="resume-section">
+                    <h3 class="section-title">WORK EXPERIENCE</h3>
+                    ${data.work.map(job => `
+                        <div class="work-item">
+                            <div class="item-header">
+                                <div class="job-title">${job.title || 'Job Title'}</div>
+                                <div class="dates">
+                                    ${formatDate(job.startDate)} - ${job.endDate ? formatDate(job.endDate) : 'Present'}
+                                </div>
+                            </div>
+                            <div class="company-name">${job.company || 'Company Name'}${job.location ? `, ${job.location}` : ''}</div>
+                            ${job.description ? `<div class="job-description">${job.description.replace(/\n/g, '<br>')}</div>` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+            ` : ''}
+            
+            ${data.education.length > 0 ? `
+                <div class="resume-section">
+                    <h3 class="section-title">EDUCATION</h3>
+                    ${data.education.map(edu => `
+                        <div class="education-item">
+                            <div class="item-header">
+                                <div class="degree-title">${edu.degree || 'Qualification'}</div>
+                                ${edu.startDate ? `
+                                    <div class="dates">
+                                        ${formatDate(edu.startDate)} - ${edu.endDate ? formatDate(edu.endDate) : 'Present'}
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <div class="school-name">${edu.school || 'School/University'}</div>
+                            ${edu.details ? `<div class="education-details">${edu.details.replace(/\n/g, '<br>')}</div>` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+            ` : ''}
+            
+            ${data.skills ? `
+                <div class="resume-section">
+                    <h3 class="section-title">SKILLS</h3>
+                    <div class="skills-list">
+                        ${generateSkillsList(data.skills)}
+                    </div>
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
+// Executive Template
+function generateExecutiveTemplate(data) {
+    return `
+        <div class="resume-template executive" id="resumeContent">
+            <div class="resume-header">
+                <h1 class="resume-name">${data.personal.name || 'Your Name'}</h1>
+                <div class="resume-title">${data.personal.title || 'Professional Title'}</div>
+                
+                <div class="resume-contact">
+                    ${data.personal.email ? `
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>${data.personal.email}</span>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.personal.phone ? `
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>${data.personal.phone}</span>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.personal.location ? `
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${data.personal.location}</span>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.personal.linkedin ? `
+                        <div class="contact-item">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn Profile</span>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+            
+            <div class="resume-content">
+                ${data.personal.summary ? `
+                    <div class="resume-section">
+                        <h3 class="section-title">Professional Summary</h3>
+                        <p class="job-description">${data.personal.summary}</p>
+                    </div>
+                ` : ''}
+                
+                ${data.work.length > 0 ? `
+                    <div class="resume-section">
+                        <h3 class="section-title">Career Experience</h3>
+                        ${data.work.map(job => `
+                            <div class="work-item">
+                                <div class="item-header">
+                                    <div class="job-title">${job.title || 'Job Title'}</div>
+                                    <div class="dates">
+                                        ${formatDate(job.startDate)} - ${job.endDate ? formatDate(job.endDate) : 'Present'}
+                                    </div>
+                                </div>
+                                <div class="company-name">${job.company || 'Company Name'}${job.location ? ` | ${job.location}` : ''}</div>
+                                ${job.description ? `<div class="job-description">${job.description.replace(/\n/g, '<br>')}</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                
+                ${data.education.length > 0 ? `
+                    <div class="resume-section">
+                        <h3 class="section-title">Education & Qualifications</h3>
+                        ${data.education.map(edu => `
+                            <div class="education-item">
+                                <div class="item-header">
+                                    <div class="degree-title">${edu.degree || 'Qualification'}</div>
+                                    ${edu.startDate ? `
+                                        <div class="dates">
+                                            ${formatDate(edu.startDate)} - ${edu.endDate ? formatDate(edu.endDate) : 'Present'}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                <div class="school-name">${edu.school || 'School/University'}</div>
+                                ${edu.details ? `<div class="education-details">${edu.details.replace(/\n/g, '<br>')}</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                
+                ${data.skills ? `
+                    <div class="resume-section">
+                        <h3 class="section-title">Core Competencies</h3>
+                        <div class="skills-list">
+                            ${generateSkillsList(data.skills)}
+                        </div>
+                    </div>
+                ` : ''}
+            </div>
+        </div>
+    `;
+}
+
+// Format date helper function
+function formatDate(dateString) {
+    if (!dateString) return 'Present';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+}
+
+// Generate skills list helper function
+function generateSkillsList(skillsText) {
+    if (!skillsText) return '';
+    const skills = skillsText.split(',').map(skill => skill.trim()).filter(skill => skill);
+    return skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('');
+}
+
+// Download resume as PDF
 async function downloadResumePDF() {
     console.log('Downloading resume as PDF...');
     
@@ -586,7 +850,7 @@ async function downloadResumePDF() {
         // Set up options
         const opt = {
             margin: [0.5, 0.5],
-            filename: `Resume_${window.resumeData?.personal?.name.replace(/\s+/g, '_') || 'MyResume'}.pdf`,
+            filename: `Resume_${window.resumeData?.personal?.name.replace(/\s+/g, '_') || 'MyResume'}_${window.selectedTemplate}.pdf`,
             image: { 
                 type: 'jpeg', 
                 quality: 0.98 
@@ -597,7 +861,9 @@ async function downloadResumePDF() {
                 letterRendering: true,
                 backgroundColor: '#ffffff',
                 scrollX: 0,
-                scrollY: 0
+                scrollY: 0,
+                windowWidth: element.scrollWidth,
+                windowHeight: element.scrollHeight
             },
             jsPDF: { 
                 unit: 'in', 
@@ -610,7 +876,7 @@ async function downloadResumePDF() {
         await html2pdf().set(opt).from(elementClone).save();
         
         // Show success message
-        showNotification('Resume downloaded successfully!', 'success');
+        showNotification(`Resume downloaded successfully! (${window.selectedTemplate} template)`, 'success');
         
     } catch (error) {
         console.error('PDF generation error:', error);
@@ -747,16 +1013,6 @@ function initReturnToTop() {
     const returnToTopBtn = document.getElementById('returnToTop');
     
     if (!returnToTopBtn) return;
-    
-    // Create button if it doesn't exist
-    if (!returnToTopBtn) {
-        const button = document.createElement('button');
-        button.id = 'returnToTop';
-        button.className = 'return-to-top';
-        button.setAttribute('aria-label', 'Return to top');
-        button.innerHTML = '<i class="fas fa-chevron-up"></i>';
-        document.body.appendChild(button);
-    }
     
     // Show/hide button based on scroll position
     function toggleReturnButton() {
