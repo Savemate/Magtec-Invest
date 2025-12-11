@@ -1756,3 +1756,164 @@ p {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* ===== Resume CTA Section ===== */
+.resume-cta {
+    background: linear-gradient(135deg, 
+        rgba(34, 34, 34, 0.95) 0%,
+        rgba(68, 68, 68, 0.9) 100%);
+    color: var(--cream-white);
+    text-align: center;
+}
+
+.resume-cta .section-title,
+.resume-cta .section-subtitle {
+    color: var(--cream-white);
+}
+
+.resume-cta .title-label {
+    color: var(--cream-light);
+}
+
+.resume-cta-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.resume-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.resume-features .feature {
+    background: rgba(255, 253, 208, 0.1);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 253, 208, 0.2);
+    transition: var(--transition-normal);
+}
+
+.resume-features .feature:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 253, 208, 0.15);
+}
+
+.resume-features .feature-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--cream-light);
+    color: var(--black);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+}
+
+.resume-features h3 {
+    color: var(--cream-white);
+    margin-bottom: 0.5rem;
+}
+
+.resume-features p {
+    color: rgba(255, 253, 208, 0.8);
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.resume-cta-action {
+    margin-top: 3rem;
+}
+
+.btn-large {
+    padding: 1.25rem 3rem;
+    font-size: 1.1rem;
+}
+
+.cta-note {
+    margin-top: 1rem;
+    color: rgba(255, 253, 208, 0.7);
+    font-size: 0.9rem;
+}
+
+/* ===== Resume Builder Page Specific Styles ===== */
+.resume-page .navbar {
+    background: var(--cream-white);
+}
+
+.resume-builder-section {
+    padding-top: 120px;
+}
+
+.resume-tips {
+    margin-top: 4rem;
+    padding: 2rem;
+    background: rgba(34, 34, 34, 0.05);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+}
+
+.resume-tips h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+    color: var(--black);
+}
+
+.resume-tips h3 i {
+    color: var(--black);
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.tip {
+    padding: 1.5rem;
+    background: var(--cream-white);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.tip h4 {
+    color: var(--black);
+    margin-bottom: 0.5rem;
+}
+
+.tip p {
+    color: var(--medium-gray);
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Fix for resume preview PDF generation */
+.resume-template {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+/* Ensure PDF generation works properly */
+#resumeContent {
+    width: 100%;
+    height: auto;
+    background: white;
+}
+
+/* Fix for form navigation */
+.logo-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
