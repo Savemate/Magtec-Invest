@@ -7,22 +7,22 @@
     --cream: #E1DCC9;
     
     /* Background & Surface Colors */
-    --bg-primary: #17395C;
-    --bg-secondary: #0F2A42;
-    --bg-light: #1E4A75;
-    --surface: #E1DCC9;
+    --bg-primary: #E1DCC9;
+    --bg-secondary: #F5F2E9;
+    --bg-light: #F9F7F2;
+    --surface: #FFFFFF;
     
     /* Text Colors */
-    --text-light: #E1DCC9;
+    --text-dark: #17395C;
     --text-gold: #EFB758;
     --text-coral: #C24229;
-    --text-muted: #A8B4C5;
-    --text-dark: #17395C;
+    --text-muted: #6C7A8C;
+    --text-light: #E1DCC9;
     
     /* UI Colors */
-    --border-color: rgba(225, 220, 201, 0.2);
-    --border-light: rgba(225, 220, 201, 0.1);
-    --shadow-color: rgba(0, 0, 0, 0.3);
+    --border-color: rgba(23, 57, 92, 0.1);
+    --border-light: rgba(23, 57, 92, 0.05);
+    --shadow-color: rgba(23, 57, 92, 0.08);
     --primary-color: #EFB758;
     --secondary-color: #C24229;
     --accent-color: #17395C;
@@ -59,7 +59,7 @@ html {
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--bg-primary);
-    color: var(--text-light);
+    color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -80,7 +80,7 @@ h1, h2, h3, h4 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     line-height: 1.2;
-    color: var(--text-gold);
+    color: var(--accent-color);
 }
 
 h1 {
@@ -96,22 +96,22 @@ h2 {
 h3 {
     font-size: 1.5rem;
     margin-bottom: 0.75rem;
-    color: var(--text-gold);
+    color: var(--accent-color);
 }
 
 h4 {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
-    color: var(--text-gold);
+    color: var(--accent-color);
 }
 
 p {
     margin-bottom: 1rem;
-    color: var(--text-light);
+    color: var(--text-muted);
 }
 
 strong {
-    color: var(--text-gold);
+    color: var(--text-coral);
 }
 
 /* ===== Navigation ===== */
@@ -120,7 +120,7 @@ strong {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(23, 57, 92, 0.95);
+    background: rgba(225, 220, 201, 0.95);
     backdrop-filter: blur(10px);
     z-index: 1000;
     box-shadow: var(--shadow-sm);
@@ -167,14 +167,14 @@ strong {
 .logo-main {
     font-size: 24px;
     font-weight: 700;
-    color: var(--text-gold);
+    color: var(--accent-color);
     letter-spacing: -0.5px;
 }
 
 .logo-sub {
     font-size: 14px;
     font-weight: 600;
-    color: var(--cream);
+    color: var(--coral);
     letter-spacing: 1px;
 }
 
@@ -192,7 +192,7 @@ strong {
     display: block;
     width: 25px;
     height: 3px;
-    background: var(--gold);
+    background: var(--accent-color);
     margin: 5px 0;
     transition: all 0.3s ease;
     border-radius: 2px;
@@ -220,7 +220,7 @@ strong {
 }
 
 .nav-link {
-    color: var(--cream);
+    color: var(--text-muted);
     text-decoration: none;
     font-weight: 500;
     font-size: 1rem;
@@ -236,13 +236,13 @@ strong {
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--gold);
+    background: var(--coral);
     transition: var(--transition-normal);
 }
 
 .nav-link:hover,
 .nav-link.active {
-    color: var(--gold);
+    color: var(--accent-color);
 }
 
 .nav-link:hover::after,
@@ -252,7 +252,7 @@ strong {
 
 .nav-cta {
     background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     padding: 0.75rem 1.5rem;
     border-radius: var(--radius-md);
     text-decoration: none;
@@ -264,8 +264,8 @@ strong {
 
 .nav-cta:hover {
     background: transparent;
-    color: var(--gold);
-    border-color: var(--gold);
+    color: var(--coral);
+    border-color: var(--coral);
     transform: translateY(-2px);
 }
 
@@ -280,7 +280,7 @@ strong {
         top: 70px;
         left: 0;
         width: 100%;
-        background: var(--bg-secondary);
+        background: var(--bg-primary);
         flex-direction: column;
         align-items: center;
         padding: 2rem;
@@ -314,8 +314,8 @@ strong {
 .hero {
     padding: 150px 0 80px;
     background: linear-gradient(135deg, 
-        var(--deep-blue) 0%,
-        var(--bg-light) 100%);
+        var(--bg-primary) 0%,
+        var(--bg-secondary) 100%);
     position: relative;
     overflow: hidden;
 }
@@ -328,8 +328,8 @@ strong {
     right: 0;
     bottom: 0;
     background: 
-        radial-gradient(circle at 20% 80%, rgba(239, 183, 88, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(194, 66, 41, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 80%, rgba(239, 183, 88, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(194, 66, 41, 0.05) 0%, transparent 50%);
     pointer-events: none;
 }
 
@@ -350,7 +350,7 @@ strong {
     align-items: center;
     gap: 8px;
     background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     padding: 8px 20px;
     border-radius: 50px;
     font-size: 14px;
@@ -371,7 +371,7 @@ strong {
     font-size: 1.2rem;
     margin-bottom: 2.5rem;
     max-width: 500px;
-    color: var(--cream);
+    color: var(--text-muted);
 }
 
 .hero-actions {
@@ -397,28 +397,28 @@ strong {
 
 .btn-dark {
     background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     border: 2px solid transparent;
     box-shadow: var(--shadow-sm);
 }
 
 .btn-dark:hover {
     background: transparent;
-    color: var(--gold);
-    border-color: var(--gold);
+    color: var(--coral);
+    border-color: var(--coral);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
 
 .btn-outline {
     background: transparent;
-    color: var(--gold);
-    border: 2px solid var(--gold);
+    color: var(--coral);
+    border: 2px solid var(--coral);
 }
 
 .btn-outline:hover {
-    background: var(--gold);
-    color: var(--deep-blue);
+    background: var(--coral);
+    color: var(--bg-primary);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
@@ -446,7 +446,7 @@ strong {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     font-size: 1.5rem;
     gap: 10px;
     transition: var(--transition-normal);
@@ -457,7 +457,7 @@ strong {
 .design-element:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
-    border-color: var(--gold);
+    border-color: var(--coral);
 }
 
 .design-element span {
@@ -489,9 +489,9 @@ strong {
 }
 
 /* Apply new colors to design elements and color chips */
-.design-element:nth-child(1) { background: var(--deep-blue); color: var(--cream); }
-.design-element:nth-child(2) { background: var(--gold); color: var(--deep-blue); }
-.design-element:nth-child(3) { background: var(--coral); color: var(--cream); }
+.design-element:nth-child(1) { background: var(--deep-blue); }
+.design-element:nth-child(2) { background: var(--gold); }
+.design-element:nth-child(3) { background: var(--coral); }
 .design-element:nth-child(4) { background: var(--cream); color: var(--deep-blue); }
 
 .color-chip:nth-child(1) { background: var(--deep-blue); }
@@ -509,7 +509,7 @@ strong {
 .mouse {
     width: 30px;
     height: 50px;
-    border: 2px solid var(--gold);
+    border: 2px solid var(--coral);
     border-radius: 15px;
     position: relative;
 }
@@ -517,7 +517,7 @@ strong {
 .wheel {
     width: 4px;
     height: 10px;
-    background: var(--gold);
+    background: var(--coral);
     border-radius: 2px;
     position: absolute;
     top: 10px;
@@ -555,7 +555,7 @@ strong {
     display: block;
     font-size: 1rem;
     font-weight: 600;
-    color: var(--gold);
+    color: var(--coral);
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 0.5rem;
@@ -563,7 +563,7 @@ strong {
 
 .section-subtitle {
     font-size: 1.1rem;
-    color: var(--cream);
+    color: var(--text-muted);
     max-width: 600px;
     margin: 0 auto;
 }
@@ -584,8 +584,8 @@ strong {
 
 .quote-box {
     background: linear-gradient(135deg, 
-        rgba(239, 183, 88, 0.1) 0%, 
-        rgba(194, 66, 41, 0.1) 100%);
+        rgba(239, 183, 88, 0.05) 0%, 
+        rgba(194, 66, 41, 0.05) 100%);
     padding: 2rem;
     border-radius: var(--radius-lg);
     border-left: 4px solid var(--gold);
@@ -599,13 +599,13 @@ strong {
     top: 1rem;
     left: 1rem;
     font-size: 2rem;
-    color: rgba(239, 183, 88, 0.3);
+    color: rgba(239, 183, 88, 0.2);
 }
 
 .quote-box p {
     font-size: 1.2rem;
     font-weight: 500;
-    color: var(--cream);
+    color: var(--accent-color);
     position: relative;
     z-index: 1;
     font-style: italic;
@@ -619,7 +619,7 @@ strong {
 
 .feature {
     padding: 1.5rem;
-    background: var(--bg-light);
+    background: var(--surface);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     border: 1px solid var(--border-color);
@@ -630,14 +630,13 @@ strong {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
     border-color: var(--gold);
-    background: var(--bg-secondary);
 }
 
 .feature-icon {
     width: 50px;
     height: 50px;
     background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -667,8 +666,8 @@ strong {
     width: 100%;
     height: 100%;
     background-image: 
-        linear-gradient(rgba(23, 57, 92, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(23, 57, 92, 0.1) 1px, transparent 1px);
+        linear-gradient(rgba(23, 57, 92, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(23, 57, 92, 0.05) 1px, transparent 1px);
     background-size: 20px 20px;
 }
 
@@ -695,8 +694,8 @@ strong {
 /* ===== Services Section ===== */
 .services {
     background: linear-gradient(135deg, 
-        var(--bg-light) 0%,
-        var(--bg-secondary) 100%);
+        var(--bg-secondary) 0%,
+        var(--bg-light) 100%);
 }
 
 .services-grid {
@@ -706,7 +705,7 @@ strong {
 }
 
 .service-card {
-    background: var(--bg-light);
+    background: var(--surface);
     border-radius: var(--radius-lg);
     padding: 2rem;
     box-shadow: var(--shadow-md);
@@ -718,14 +717,13 @@ strong {
     transform: translateY(-10px);
     box-shadow: var(--shadow-lg);
     border-color: var(--gold);
-    background: var(--bg-secondary);
 }
 
 .service-icon {
     width: 60px;
     height: 60px;
     background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -737,11 +735,11 @@ strong {
 .service-card h3 {
     margin-bottom: 1rem;
     font-size: 1.25rem;
-    color: var(--gold);
+    color: var(--accent-color);
 }
 
 .service-card > p {
-    color: var(--cream);
+    color: var(--text-muted);
     margin-bottom: 1.5rem;
 }
 
@@ -755,7 +753,7 @@ strong {
     align-items: center;
     gap: 10px;
     margin-bottom: 0.5rem;
-    color: var(--cream);
+    color: var(--text-muted);
     font-size: 0.95rem;
 }
 
@@ -778,7 +776,7 @@ strong {
 
 .savemate-info > p {
     margin-bottom: 2rem;
-    color: var(--cream);
+    color: var(--text-muted);
 }
 
 .savemate-features {
@@ -793,14 +791,14 @@ strong {
     align-items: flex-start;
     gap: 1rem;
     padding: 1rem;
-    background: rgba(239, 183, 88, 0.1);
+    background: rgba(239, 183, 88, 0.05);
     border-radius: var(--radius-md);
     border-left: 3px solid var(--gold);
     transition: var(--transition-fast);
 }
 
 .feature-card:hover {
-    background: rgba(239, 183, 88, 0.15);
+    background: rgba(239, 183, 88, 0.08);
     transform: translateX(5px);
 }
 
@@ -812,11 +810,11 @@ strong {
 
 .feature-card h4 {
     margin-bottom: 0.25rem;
-    color: var(--gold);
+    color: var(--accent-color);
 }
 
 .feature-card p {
-    color: var(--cream);
+    color: var(--text-muted);
     margin: 0;
     font-size: 0.95rem;
 }
@@ -836,7 +834,7 @@ strong {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 280px;
-    background: var(--bg-light);
+    background: var(--surface);
     border-radius: var(--radius-lg);
     padding: 1.5rem;
     box-shadow: var(--shadow-lg);
@@ -854,7 +852,7 @@ strong {
     width: 40px;
     height: 40px;
     background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
@@ -866,7 +864,7 @@ strong {
 .app-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--accent-color);
 }
 
 .app-content {
@@ -877,34 +875,34 @@ strong {
 
 .deal-item {
     padding: 1rem;
-    background: rgba(239, 183, 88, 0.1);
+    background: rgba(239, 183, 88, 0.05);
     border-radius: var(--radius-md);
     border-left: 3px solid var(--gold);
     transition: var(--transition-fast);
 }
 
 .deal-item:hover {
-    background: rgba(239, 183, 88, 0.15);
+    background: rgba(239, 183, 88, 0.08);
     transform: translateX(5px);
 }
 
 .store-name {
     font-weight: 600;
-    color: var(--gold);
+    color: var(--accent-color);
     margin-bottom: 5px;
     font-size: 0.95rem;
 }
 
 .deal-info {
     font-size: 0.9rem;
-    color: var(--cream);
+    color: var(--text-muted);
 }
 
 /* ===== Resume Builder Section ===== */
 .resume-builder {
     background: linear-gradient(135deg, 
         var(--bg-light) 0%,
-        var(--bg-primary) 100%);
+        var(--bg-secondary) 100%);
 }
 
 .resume-container {
@@ -915,7 +913,7 @@ strong {
 }
 
 .resume-form-container {
-    background: var(--bg-light);
+    background: var(--surface);
     border-radius: var(--radius-lg);
     padding: 2rem;
     box-shadow: var(--shadow-lg);
@@ -954,8 +952,8 @@ strong {
     gap: 10px;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid rgba(239, 183, 88, 0.3);
-    color: var(--gold);
+    border-bottom: 2px solid rgba(239, 183, 88, 0.2);
+    color: var(--accent-color);
 }
 
 .form-section h3 i {
@@ -986,11 +984,11 @@ strong {
     width: 100%;
     padding: 1rem 0;
     border: none;
-    border-bottom: 2px solid rgba(239, 183, 88, 0.4);
+    border-bottom: 2px solid rgba(239, 183, 88, 0.3);
     background: transparent;
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
-    color: var(--cream);
+    color: var(--accent-color);
     transition: var(--transition-fast);
 }
 
@@ -1039,11 +1037,11 @@ strong {
     justify-content: space-between;
     margin-top: 2rem;
     padding-top: 1.5rem;
-    border-top: 2px solid rgba(239, 183, 88, 0.3);
+    border-top: 2px solid rgba(239, 183, 88, 0.2);
 }
 
 .entry-item {
-    background: rgba(239, 183, 88, 0.1);
+    background: rgba(239, 183, 88, 0.05);
     border-radius: var(--radius-md);
     padding: 1.5rem;
     margin-bottom: 1rem;
@@ -1054,7 +1052,7 @@ strong {
 
 .entry-item:hover {
     border-color: var(--gold);
-    background: rgba(239, 183, 88, 0.15);
+    background: rgba(239, 183, 88, 0.08);
 }
 
 .entry-header {
@@ -1066,12 +1064,12 @@ strong {
 
 .entry-title {
     font-weight: 600;
-    color: var(--cream);
+    color: var(--accent-color);
     font-size: 1.1rem;
 }
 
 .remove-entry {
-    background: rgba(239, 183, 88, 0.3);
+    background: rgba(239, 183, 88, 0.1);
     border: none;
     width: 30px;
     height: 30px;
@@ -1079,19 +1077,19 @@ strong {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--cream);
+    color: var(--text-muted);
     cursor: pointer;
     transition: var(--transition-fast);
 }
 
 .remove-entry:hover {
-    background: rgba(239, 183, 88, 0.4);
-    color: var(--gold);
+    background: rgba(239, 183, 88, 0.2);
+    color: var(--coral);
 }
 
 /* Resume Preview Styles */
 .resume-preview-container {
-    background: var(--bg-light);
+    background: var(--surface);
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
@@ -1103,7 +1101,7 @@ strong {
 
 .preview-header {
     background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     padding: 1.5rem;
     display: flex;
     justify-content: space-between;
@@ -1111,7 +1109,7 @@ strong {
 }
 
 .preview-header h3 {
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     margin: 0;
     display: flex;
     align-items: center;
@@ -1122,7 +1120,7 @@ strong {
     flex: 1;
     padding: 2rem;
     overflow-y: auto;
-    background: var(--bg-light);
+    background: #ffffff;
 }
 
 .preview-placeholder {
@@ -1132,7 +1130,7 @@ strong {
     justify-content: center;
     height: 100%;
     text-align: center;
-    color: var(--cream);
+    color: var(--text-muted);
 }
 
 .preview-placeholder i {
@@ -1144,7 +1142,7 @@ strong {
 .preview-placeholder p {
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
-    color: var(--cream);
+    color: var(--accent-color);
 }
 
 .placeholder-sub {
@@ -1155,10 +1153,10 @@ strong {
 /* Resume Template Styles */
 .resume-template {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--cream);
+    color: var(--accent-color);
     max-width: 800px;
     margin: 0 auto;
-    background: var(--bg-light);
+    background: #ffffff;
 }
 
 .resume-header {
@@ -1170,13 +1168,13 @@ strong {
 .resume-name {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--accent-color);
     margin-bottom: 0.5rem;
 }
 
 .resume-title {
     font-size: 1.2rem;
-    color: var(--gold);
+    color: var(--coral);
     margin-bottom: 1rem;
     font-weight: 500;
 }
@@ -1192,7 +1190,7 @@ strong {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--gold);
+    color: var(--text-muted);
     font-size: 0.95rem;
 }
 
@@ -1208,10 +1206,10 @@ strong {
 .section-title {
     font-size: 1.3rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--accent-color);
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
-    border-bottom: 2px solid rgba(239, 183, 88, 0.3);
+    border-bottom: 2px solid rgba(239, 183, 88, 0.2);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -1236,24 +1234,24 @@ strong {
 .job-title, .degree-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--cream);
+    color: var(--accent-color);
 }
 
 .company-name, .school-name {
     font-size: 1rem;
-    color: var(--gold);
+    color: var(--coral);
     margin-bottom: 0.5rem;
 }
 
 .dates {
     font-size: 0.9rem;
-    color: var(--cream);
+    color: var(--text-muted);
     font-weight: 500;
 }
 
 .job-description, .education-details {
     font-size: 0.95rem;
-    color: var(--cream);
+    color: var(--text-muted);
     line-height: 1.5;
 }
 
@@ -1265,18 +1263,18 @@ strong {
 }
 
 .skill-tag {
-    background: rgba(239, 183, 88, 0.2);
-    color: var(--cream);
+    background: rgba(239, 183, 88, 0.1);
+    color: var(--accent-color);
     padding: 0.4rem 1rem;
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 500;
-    border: 1px solid rgba(239, 183, 88, 0.3);
+    border: 1px solid rgba(239, 183, 88, 0.2);
     transition: var(--transition-fast);
 }
 
 .skill-tag:hover {
-    background: rgba(239, 183, 88, 0.3);
+    background: rgba(239, 183, 88, 0.2);
 }
 
 /* Progress Indicator */
@@ -1291,24 +1289,24 @@ strong {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(239, 183, 88, 0.2);
+    background: rgba(239, 183, 88, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 600;
-    color: var(--cream);
+    color: var(--text-muted);
     transition: var(--transition-normal);
     position: relative;
 }
 
 .progress-step.active {
     background: var(--gold);
-    color: var(--deep-blue);
+    color: var(--bg-primary);
 }
 
 .progress-step.completed {
     background: var(--coral);
-    color: var(--cream);
+    color: var(--bg-primary);
 }
 
 .progress-step::after {
@@ -1316,7 +1314,7 @@ strong {
     position: absolute;
     width: 30px;
     height: 3px;
-    background: rgba(239, 183, 88, 0.2);
+    background: rgba(239, 183, 88, 0.1);
     right: -30px;
     top: 50%;
     transform: translateY(-50%);
@@ -1344,7 +1342,7 @@ strong {
     align-items: flex-start;
     gap: 1rem;
     padding: 1.5rem;
-    background: var(--bg-light);
+    background: var(--surface);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     border: 1px solid var(--border-color);
@@ -1355,14 +1353,13 @@ strong {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
     border-color: var(--gold);
-    background: var(--bg-secondary);
 }
 
 .info-icon {
     width: 50px;
     height: 50px;
     background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1374,11 +1371,11 @@ strong {
 .info-content h3 {
     margin-bottom: 0.5rem;
     font-size: 1.1rem;
-    color: var(--gold);
+    color: var(--accent-color);
 }
 
 .contact-link {
-    color: var(--gold);
+    color: var(--coral);
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
@@ -1386,18 +1383,18 @@ strong {
 }
 
 .contact-link:hover {
-    color: var(--coral);
+    color: var(--gold);
     text-decoration: underline;
 }
 
 .info-content p {
-    color: var(--cream);
+    color: var(--text-muted);
     margin: 0.25rem 0 0 0;
     font-size: 0.9rem;
 }
 
 .contact-form {
-    background: var(--bg-light);
+    background: var(--surface);
     border-radius: var(--radius-lg);
     padding: 2rem;
     box-shadow: var(--shadow-lg);
@@ -1406,11 +1403,11 @@ strong {
 
 .contact-form h3 {
     margin-bottom: 0.5rem;
-    color: var(--gold);
+    color: var(--accent-color);
 }
 
 .contact-form > p {
-    color: var(--cream);
+    color: var(--text-muted);
     margin-bottom: 2rem;
     font-size: 0.95rem;
 }
@@ -1426,11 +1423,11 @@ strong {
     width: 100%;
     padding: 1rem 0;
     border: none;
-    border-bottom: 2px solid rgba(239, 183, 88, 0.4);
+    border-bottom: 2px solid rgba(239, 183, 88, 0.3);
     background: transparent;
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
-    color: var(--cream);
+    color: var(--accent-color);
     transition: var(--transition-fast);
 }
 
@@ -1481,19 +1478,19 @@ strong {
     width: 100%;
     margin-top: 1rem;
     background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     border: 2px solid transparent;
 }
 
 .contact-form button[type="submit"]:hover {
     background: transparent;
-    color: var(--gold);
-    border-color: var(--gold);
+    color: var(--coral);
+    border-color: var(--coral);
 }
 
 /* ===== Footer ===== */
 .footer {
-    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--deep-blue) 100%);
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--deep-blue) 100%);
     color: var(--cream);
     padding: 3rem 0 1.5rem;
     border-top: 1px solid var(--border-color);
@@ -1581,11 +1578,11 @@ strong {
     justify-content: space-between;
     align-items: center;
     padding-top: 1.5rem;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid rgba(239, 183, 88, 0.2);
 }
 
 .copyright p {
-    color: var(--cream);
+    color: rgba(225, 220, 201, 0.7);
     margin: 0.25rem 0;
     font-size: 0.85rem;
 }
@@ -1607,7 +1604,7 @@ strong {
     font-size: 1.2rem;
     transition: var(--transition-normal);
     text-decoration: none;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(239, 183, 88, 0.2);
 }
 
 .social-link:hover {
@@ -1624,7 +1621,7 @@ strong {
     left: 20px;
     right: 20px;
     max-width: 400px;
-    background: var(--bg-light);
+    background: var(--surface);
     border-radius: var(--radius-lg);
     padding: 1.5rem;
     box-shadow: var(--shadow-lg);
@@ -1651,7 +1648,7 @@ strong {
     align-items: center;
     gap: 10px;
     margin-bottom: 0.5rem;
-    color: var(--gold);
+    color: var(--accent-color);
 }
 
 .cookies-text h3 i {
@@ -1659,7 +1656,7 @@ strong {
 }
 
 .cookies-text p {
-    color: var(--cream);
+    color: var(--text-muted);
     font-size: 0.95rem;
     margin-bottom: 1rem;
 }
@@ -1670,7 +1667,7 @@ strong {
 }
 
 .cookies-links a {
-    color: var(--gold);
+    color: var(--coral);
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
@@ -1678,7 +1675,7 @@ strong {
 }
 
 .cookies-links a:hover {
-    color: var(--coral);
+    color: var(--gold);
     text-decoration: underline;
 }
 
@@ -1703,7 +1700,7 @@ strong {
     width: 50px;
     height: 50px;
     background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     border-radius: 50%;
     border: none;
     cursor: pointer;
@@ -1727,16 +1724,16 @@ strong {
 
 .return-to-top:hover {
     background: transparent;
-    color: var(--gold);
-    border: 2px solid var(--gold);
+    color: var(--coral);
+    border: 2px solid var(--coral);
     transform: translateY(-5px);
 }
 
 /* ===== Resume CTA Section ===== */
 .resume-cta {
     background: linear-gradient(135deg, 
-        var(--bg-secondary) 0%,
-        var(--deep-blue) 100%);
+        var(--deep-blue) 0%,
+        var(--accent-color) 100%);
     color: var(--cream);
     text-align: center;
 }
@@ -1817,7 +1814,7 @@ strong {
 
 /* ===== Resume Builder Page Specific Styles ===== */
 .resume-page .navbar {
-    background: var(--bg-primary);
+    background: rgba(225, 220, 201, 0.95);
 }
 
 .resume-builder-section {
@@ -1828,8 +1825,8 @@ strong {
     margin-top: 4rem;
     padding: 2rem;
     background: linear-gradient(135deg, 
-        rgba(239, 183, 88, 0.1) 0%, 
-        rgba(194, 66, 41, 0.1) 100%);
+        rgba(239, 183, 88, 0.05) 0%, 
+        rgba(194, 66, 41, 0.05) 100%);
     border-radius: var(--radius-lg);
     border: 1px solid var(--border-color);
 }
@@ -1839,7 +1836,7 @@ strong {
     align-items: center;
     gap: 10px;
     margin-bottom: 1.5rem;
-    color: var(--gold);
+    color: var(--accent-color);
 }
 
 .resume-tips h3 i {
@@ -1854,7 +1851,7 @@ strong {
 
 .tip {
     padding: 1.5rem;
-    background: var(--bg-light);
+    background: var(--surface);
     border-radius: var(--radius-md);
     border: 1px solid var(--border-color);
     transition: var(--transition-fast);
@@ -1866,12 +1863,12 @@ strong {
 }
 
 .tip h4 {
-    color: var(--gold);
+    color: var(--accent-color);
     margin-bottom: 0.5rem;
 }
 
 .tip p {
-    color: var(--cream);
+    color: var(--text-muted);
     margin: 0;
     font-size: 0.95rem;
 }
@@ -1879,10 +1876,10 @@ strong {
 /* Fix for resume preview PDF generation */
 .resume-template {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--cream);
+    color: var(--accent-color);
     max-width: 800px;
     margin: 0 auto;
-    background: var(--bg-light);
+    background: #ffffff;
     padding: 40px;
     box-sizing: border-box;
 }
@@ -1891,7 +1888,7 @@ strong {
 #resumeContent {
     width: 100%;
     height: auto;
-    background: var(--bg-light);
+    background: #ffffff;
 }
 
 /* Fix for form navigation */
@@ -1907,8 +1904,8 @@ strong {
     margin: 2rem 0 3rem;
     padding: 2rem;
     background: linear-gradient(135deg, 
-        rgba(239, 183, 88, 0.1) 0%, 
-        rgba(225, 220, 201, 0.1) 100%);
+        rgba(239, 183, 88, 0.05) 0%, 
+        rgba(225, 220, 201, 0.05) 100%);
     border-radius: var(--radius-lg);
     border: 1px solid var(--border-color);
 }
@@ -1918,7 +1915,7 @@ strong {
     align-items: center;
     gap: 10px;
     margin-bottom: 1.5rem;
-    color: var(--gold);
+    color: var(--accent-color);
 }
 
 .template-selection h3 i {
@@ -1932,7 +1929,7 @@ strong {
 }
 
 .template-option {
-    background: var(--bg-light);
+    background: var(--surface);
     border-radius: var(--radius-md);
     overflow: hidden;
     border: 2px solid transparent;
@@ -1969,7 +1966,7 @@ strong {
 
 .modern-template .sample-header {
     background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     padding: 10px;
     height: 30px;
 }
@@ -1990,7 +1987,7 @@ strong {
 
 .sample-content {
     padding: 15px;
-    background: var(--bg-light);
+    background: var(--surface);
 }
 
 .sample-line {
@@ -2010,11 +2007,11 @@ strong {
 
 .template-info h4 {
     margin-bottom: 0.5rem;
-    color: var(--gold);
+    color: var(--accent-color);
 }
 
 .template-info p {
-    color: var(--cream);
+    color: var(--text-muted);
     margin: 0;
     font-size: 0.95rem;
 }
@@ -2025,7 +2022,7 @@ strong {
     justify-content: space-between;
     align-items: center;
     background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     padding: 1.5rem;
 }
 
@@ -2036,7 +2033,7 @@ strong {
 }
 
 .preview-title h3 {
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     margin: 0;
     display: flex;
     align-items: center;
@@ -2045,7 +2042,7 @@ strong {
 
 .selected-template {
     font-size: 0.9rem;
-    color: var(--deep-blue);
+    color: var(--bg-primary);
     display: flex;
     align-items: center;
     gap: 5px;
@@ -2053,16 +2050,16 @@ strong {
 
 #currentTemplateName {
     font-weight: 600;
-    color: var(--deep-blue);
+    color: var(--bg-primary);
 }
 
 /* Resume Template Styles */
 .resume-template {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--cream);
+    color: var(--accent-color);
     max-width: 800px;
     margin: 0 auto;
-    background: var(--bg-light);
+    background: #ffffff;
     padding: 40px;
     box-sizing: border-box;
     min-height: 297mm; /* A4 height */
@@ -2084,14 +2081,14 @@ strong {
 .resume-template.modern .resume-name {
     font-size: 2.8rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--accent-color);
     margin-bottom: 0.5rem;
     letter-spacing: -0.5px;
 }
 
 .resume-template.modern .resume-title {
     font-size: 1.4rem;
-    color: var(--gold);
+    color: var(--coral);
     margin-bottom: 1.5rem;
     font-weight: 500;
 }
@@ -2107,7 +2104,7 @@ strong {
 .resume-template.modern .section-title {
     font-size: 1.4rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--accent-color);
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
     border-bottom: 2px solid var(--gold);
@@ -2128,17 +2125,17 @@ strong {
 .resume-template.modern .education-item {
     margin-bottom: 1.8rem;
     padding-left: 1rem;
-    border-left: 2px solid rgba(239, 183, 88, 0.3);
+    border-left: 2px solid rgba(239, 183, 88, 0.2);
 }
 
 .resume-template.modern .skill-tag {
-    background: rgba(239, 183, 88, 0.2);
-    color: var(--cream);
+    background: rgba(239, 183, 88, 0.1);
+    color: var(--accent-color);
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 500;
-    border: 1px solid rgba(239, 183, 88, 0.3);
+    border: 1px solid rgba(239, 183, 88, 0.2);
     display: inline-block;
     margin: 0.3rem;
 }
@@ -2160,13 +2157,13 @@ strong {
 .resume-template.classic .resume-name {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--accent-color);
     margin-bottom: 0.5rem;
 }
 
 .resume-template.classic .resume-title {
     font-size: 1.3rem;
-    color: var(--gold);
+    color: var(--coral);
     font-weight: 500;
 }
 
@@ -2177,16 +2174,16 @@ strong {
 .resume-template.classic .contact-item {
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
-    color: var(--gold);
+    color: var(--text-muted);
 }
 
 .resume-template.classic .section-title {
     font-size: 1.3rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--accent-color);
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(239, 183, 88, 0.3);
+    border-bottom: 1px solid rgba(239, 183, 88, 0.2);
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -2202,26 +2199,26 @@ strong {
 .resume-template.classic .degree-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--cream);
+    color: var(--accent-color);
 }
 
 .resume-template.classic .dates {
     font-size: 0.9rem;
-    color: var(--gold);
+    color: var(--coral);
     font-weight: 500;
-    background: rgba(239, 183, 88, 0.2);
+    background: rgba(239, 183, 88, 0.1);
     padding: 0.3rem 0.8rem;
     border-radius: 3px;
 }
 
 .resume-template.classic .skill-tag {
-    background: rgba(239, 183, 88, 0.2);
-    color: var(--cream);
+    background: rgba(239, 183, 88, 0.1);
+    color: var(--accent-color);
     padding: 0.4rem 1rem;
     border-radius: 3px;
     font-size: 0.9rem;
     font-weight: 500;
-    border: 1px solid rgba(239, 183, 88, 0.3);
+    border: 1px solid rgba(239, 183, 88, 0.2);
     display: inline-block;
     margin: 0.2rem;
 }
@@ -2229,7 +2226,7 @@ strong {
 /* Executive Template */
 .resume-template.executive {
     font-family: 'Montserrat', sans-serif;
-    background: var(--bg-secondary);
+    background: var(--bg-light);
 }
 
 .resume-template.executive .resume-header {
@@ -2272,7 +2269,7 @@ strong {
 .resume-template.executive .section-title {
     font-size: 1.4rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--accent-color);
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
     position: relative;
@@ -2293,7 +2290,7 @@ strong {
 .resume-template.executive .education-item {
     margin-bottom: 2rem;
     padding: 1.5rem;
-    background: var(--bg-light);
+    background: var(--surface);
     border-radius: 8px;
     box-shadow: var(--shadow-sm);
     border-left: 4px solid var(--coral);
